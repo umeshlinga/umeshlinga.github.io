@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Umesh Linga · Bioinformatics</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+:root{
+  --white:#ffffff;--off:#f5f5f7;--light:#fbfbfd;
+  --dark:#1d1d1f;--dark2:#2d2d2f;--dark3:#3a3a3c;
+  --gray:#6e6e73;--gray2:#86868b;--gray3:#aeaeb2;
+  --teal:#00c4a7;--teal2:#00a38d;--blue:#0071e3;
+  --font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--white);color:var(--dark);overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:52px;background:rgba(255,255,255,0.88);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+.nav-logo{font-size:17px;font-weight:600;color:var(--dark);letter-spacing:-0.5px}
+.nav-logo span{color:var(--teal)}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:13px;color:var(--gray);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--dark)}
+.nav-chat-btn{background:var(--dark);color:white;border:none;padding:7px 16px;border-radius:20px;font-size:13px;cursor:pointer;font-family:var(--font);transition:all 0.2s;display:flex;align-items:center;gap:6px}
+.nav-chat-btn:hover{background:var(--dark2);transform:scale(1.02)}
+.nav-dot{width:7px;height:7px;background:#30d158;border-radius:50%;animation:pulse-g 2s ease infinite}
+@keyframes pulse-g{0%,100%{opacity:1}50%{opacity:0.6}}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 4rem;background:var(--light);position:relative;overflow:hidden}
+#hero-canvas{position:absolute;inset:0;opacity:0.3;pointer-events:none}
+.hero-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(0,196,167,0.08);border:1px solid rgba(0,196,167,0.25);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--teal2);margin-bottom:2rem;animation:fadeUp 0.8s ease 0.1s both}
+.hero-chip-dot{width:6px;height:6px;background:var(--teal);border-radius:50%;animation:pulse-g 2s ease infinite}
+.hero-h1{font-size:clamp(3.5rem,8vw,7rem);font-weight:700;letter-spacing:-3px;line-height:1.02;margin-bottom:1.5rem;animation:fadeUp 0.8s ease 0.2s both;color:var(--dark)}
+.hero-h1 em{font-style:normal;background:linear-gradient(135deg,var(--teal),#0071e3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(1.1rem,2.5vw,1.4rem);color:var(--gray);font-weight:400;max-width:600px;line-height:1.6;margin-bottom:2.5rem;animation:fadeUp 0.8s ease 0.35s both;letter-spacing:-0.3px}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.8s ease 0.5s both}
+.btn-primary{background:var(--blue);color:white;padding:12px 24px;border-radius:980px;font-size:15px;text-decoration:none;transition:all 0.2s;letter-spacing:-0.2px}
+.btn-primary:hover{background:#0077ed;transform:scale(1.02)}
+.btn-ghost{background:rgba(0,0,0,0.05);color:var(--dark);padding:12px 24px;border-radius:980px;font-size:15px;text-decoration:none;transition:all 0.2s;letter-spacing:-0.2px}
+.btn-ghost:hover{background:rgba(0,0,0,0.1);transform:scale(1.02)}
+
+/* ── STATS ── */
+.stats-wrap{background:var(--off);padding:4rem 2rem}
+.stats-bar{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.stat-num{font-size:3rem;font-weight:700;color:var(--dark);letter-spacing:-2px;line-height:1}
+.stat-lbl{font-size:13px;color:var(--gray);margin-top:6px}
+
+/* ── SECTIONS ── */
+.sec-white{background:var(--white);padding:7rem 2rem}
+.sec-dark{background:var(--dark);padding:7rem 2rem;color:white}
+.sec-off{background:var(--off);padding:7rem 2rem}
+.sec-inner{max-width:980px;margin:0 auto}
+.sec-eyebrow{font-size:12px;color:var(--teal);font-weight:600;letter-spacing:1px;margin-bottom:1rem;text-transform:uppercase}
+.sec-h2{font-size:clamp(2rem,4vw,3.2rem);font-weight:700;letter-spacing:-1.5px;line-height:1.05;margin-bottom:1rem}
+.sec-h2 em{font-style:normal;color:var(--teal)}
+.sec-p{font-size:17px;color:var(--gray);line-height:1.65;max-width:580px;margin-bottom:3rem;letter-spacing:-0.2px}
+
+/* ── PIPELINE ── */
+.pipeline-wrap{display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding:2rem 0}
+.pipe-step{flex:1;min-width:100px;display:flex;flex-direction:column;align-items:center;gap:0.75rem;text-align:center}
+.pipe-icon-wrap{width:64px;height:64px;border-radius:18px;background:white;box-shadow:0 4px 20px rgba(0,0,0,0.08),0 1px 4px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;transition:transform 0.2s,box-shadow 0.2s;cursor:default}
+.pipe-icon-wrap:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,196,167,0.18),0 2px 8px rgba(0,0,0,0.08)}
+.pipe-label{font-size:11px;font-weight:500;color:var(--gray);letter-spacing:0.2px}
+.pipe-sub{font-size:10px;color:var(--gray3)}
+.pipe-arr{display:flex;align-items:center;padding-bottom:28px;color:var(--gray3);flex-shrink:0;font-size:18px;padding-left:4px;padding-right:4px}
+
+/* ── SKILLS ── */
+.skills-grid-apple{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+.skill-card-apple{background:white;border-radius:16px;padding:1.75rem;box-shadow:0 2px 16px rgba(0,0,0,0.06);transition:transform 0.2s,box-shadow 0.2s}
+.skill-card-apple:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,0.1)}
+.skill-card-icon{margin-bottom:1rem}
+.skill-card-title{font-size:15px;font-weight:600;color:var(--dark);margin-bottom:0.25rem;letter-spacing:-0.3px}
+.skill-card-sub{font-size:13px;color:var(--gray2);margin-bottom:1rem}
+.skill-tags-apple{display:flex;flex-wrap:wrap;gap:5px}
+.skill-tag{font-size:11px;background:var(--off);color:var(--gray);padding:3px 9px;border-radius:6px}
+
+/* ── PROJECTS ── */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden}
+.proj-card{background:var(--dark2);padding:2.5rem;transition:background 0.25s;cursor:default}
+.proj-card:hover{background:var(--dark3)}
+.proj-icon-dark{margin-bottom:1.5rem}
+.proj-num{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:0.75rem}
+.proj-title-d{font-size:1.3rem;font-weight:700;color:white;margin-bottom:0.75rem;letter-spacing:-0.5px;line-height:1.2}
+.proj-desc-d{font-size:14px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:1.5rem}
+.proj-metrics-d{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem}
+.proj-metric-d{font-size:13px;color:var(--teal);display:flex;align-items:center;gap:6px}
+.proj-metric-d::before{content:'';width:16px;height:1px;background:var(--teal);flex-shrink:0}
+.proj-tags-d{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem}
+.proj-tag-d{font-size:11px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);padding:4px 10px;border-radius:6px}
+.proj-link-d{font-size:13px;color:var(--teal);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:gap 0.2s}
+.proj-link-d:hover{gap:10px}
+
+/* ── EXPERIENCE ── */
+.exp-list{display:flex;flex-direction:column;gap:0}
+.exp-item{display:grid;grid-template-columns:200px 1fr;gap:4rem;padding:3rem 0;border-top:1px solid rgba(0,0,0,0.06)}
+.exp-item:last-child{border-bottom:1px solid rgba(0,0,0,0.06)}
+.exp-date{font-size:12px;color:var(--gray2);line-height:1.8}
+.exp-date strong{display:block;font-size:13px;color:var(--dark);font-weight:600;margin-bottom:4px}
+.exp-role{font-size:1.1rem;font-weight:600;color:var(--dark);margin-bottom:3px;letter-spacing:-0.3px}
+.exp-org{font-size:13px;color:var(--teal2);margin-bottom:1rem;font-weight:500}
+.exp-pts{list-style:none;display:flex;flex-direction:column;gap:6px}
+.exp-pts li{font-size:14px;color:var(--gray);line-height:1.6;padding-left:1rem;position:relative}
+.exp-pts li::before{content:'·';position:absolute;left:0;color:var(--teal);font-size:16px;top:-1px}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-links{display:flex;flex-direction:column;gap:0}
+.contact-row{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0;border-bottom:1px solid rgba(255,255,255,0.06);text-decoration:none;color:white;transition:opacity 0.2s}
+.contact-row:first-child{border-top:1px solid rgba(255,255,255,0.06)}
+.contact-row:hover{opacity:0.7}
+.cr-label{font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:1px;margin-bottom:3px}
+.cr-value{font-size:15px;color:white;letter-spacing:-0.3px}
+.avail-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(48,209,88,0.12);border:1px solid rgba(48,209,88,0.25);padding:8px 16px;border-radius:20px;font-size:12px;color:#30d158;margin-bottom:2rem;letter-spacing:0.3px}
+.avail-dot{width:6px;height:6px;background:#30d158;border-radius:50%;animation:pulse-g 2s ease infinite}
+
+/* ── CHATBOT ── */
+#chat-fab{position:fixed;bottom:2rem;right:2rem;z-index:999;width:56px;height:56px;background:var(--dark);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(0,0,0,0.25);transition:all 0.2s}
+#chat-fab:hover{transform:scale(1.08);background:var(--dark2)}
+.fab-badge{position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:#ff3b30;border-radius:50%;border:2px solid white}
+#chat-overlay{position:fixed;inset:0;z-index:1000;display:none;align-items:flex-end;justify-content:flex-end;padding:1.5rem;pointer-events:none}
+#chat-overlay.open{display:flex;pointer-events:all}
+#chat-box{width:390px;height:620px;background:rgba(255,255,255,0.96);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border-radius:22px;box-shadow:0 32px 80px rgba(0,0,0,0.22),0 0 0 1px rgba(0,0,0,0.08);display:flex;flex-direction:column;overflow:hidden;animation:chatPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both}
+@keyframes chatPop{from{opacity:0;transform:scale(0.85) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.chat-hdr{padding:1rem 1.25rem;border-bottom:1px solid rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:space-between}
+.chat-hdr-l{display:flex;align-items:center;gap:10px}
+.chat-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#0071e3);display:flex;align-items:center;justify-content:center}
+.chat-name{font-size:14px;font-weight:600;color:var(--dark)}
+.chat-status{font-size:11px;color:var(--gray2);display:flex;align-items:center;gap:4px;margin-top:1px}
+.chat-status-dot{width:6px;height:6px;background:#30d158;border-radius:50%}
+.chat-close-btn{background:none;border:none;cursor:pointer;font-size:18px;color:var(--gray2);padding:4px;line-height:1;transition:color 0.2s}
+.chat-close-btn:hover{color:var(--dark)}
+.chat-msgs{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+.chat-msgs::-webkit-scrollbar{width:0}
+.msg{max-width:88%;display:flex;flex-direction:column;gap:3px}
+.msg.user{align-self:flex-end;align-items:flex-end}
+.msg.bot{align-self:flex-start;align-items:flex-start}
+.msg-bubble{padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.55;letter-spacing:-0.1px;white-space:pre-wrap}
+.msg.user .msg-bubble{background:var(--blue);color:white;border-bottom-right-radius:5px}
+.msg.bot .msg-bubble{background:var(--off);color:var(--dark);border-bottom-left-radius:5px}
+.msg-time{font-size:10px;color:var(--gray3);padding:0 4px}
+.typing{display:flex;gap:4px;align-items:center;padding:12px 16px;background:var(--off);border-radius:18px;border-bottom-left-radius:5px}
+.t-dot{width:7px;height:7px;background:var(--gray3);border-radius:50%;animation:tdot 1.2s ease infinite}
+.t-dot:nth-child(2){animation-delay:.2s}
+.t-dot:nth-child(3){animation-delay:.4s}
+@keyframes tdot{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+
+/* meeting card inside chat */
+.meeting-card{background:white;border:1px solid rgba(0,0,0,0.08);border-radius:14px;padding:14px;margin-top:8px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.meeting-card-title{font-size:12px;font-weight:600;color:var(--dark);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.meeting-slots{display:flex;flex-direction:column;gap:6px}
+.slot-btn{background:var(--off);border:1px solid rgba(0,0,0,0.08);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--dark);cursor:pointer;font-family:var(--font);text-align:left;transition:all 0.15s;display:flex;justify-content:space-between;align-items:center}
+.slot-btn:hover{background:rgba(0,196,167,0.08);border-color:var(--teal);color:var(--teal2)}
+.slot-time{font-weight:600;font-size:13px}
+.slot-type{font-size:11px;color:var(--gray2)}
+.confirm-btn{width:100%;background:var(--blue);color:white;border:none;border-radius:10px;padding:10px;font-size:13px;cursor:pointer;font-family:var(--font);margin-top:8px;transition:all 0.2s;font-weight:500}
+.confirm-btn:hover{background:#0077ed}
+.confirm-btn:disabled{background:var(--gray3);cursor:not-allowed}
+
+.chat-sugg{padding:0.5rem 1rem;display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid rgba(0,0,0,0.05)}
+.sugg-btn{font-size:12px;background:var(--off);color:var(--dark);border:none;padding:6px 12px;border-radius:12px;cursor:pointer;font-family:var(--font);transition:background 0.15s;white-space:nowrap}
+.sugg-btn:hover{background:#e8e8ed}
+.chat-inp-row{padding:0.75rem 1rem;border-top:1px solid rgba(0,0,0,0.06);display:flex;gap:8px;align-items:center}
+.chat-inp{flex:1;border:1px solid rgba(0,0,0,0.1);border-radius:22px;padding:9px 16px;font-size:14px;font-family:var(--font);outline:none;background:var(--off);color:var(--dark);transition:border-color 0.2s}
+.chat-inp:focus{border-color:var(--blue);background:white}
+.send-btn{width:34px;height:34px;background:var(--blue);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0}
+.send-btn:hover{background:#0077ed;transform:scale(1.05)}
+.send-btn:disabled{background:var(--gray3);cursor:not-allowed;transform:none}
+.send-btn svg{width:14px;height:14px;fill:white}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);padding:2rem;border-top:1px solid rgba(255,255,255,0.06);text-align:center;font-size:12px;color:rgba(255,255,255,0.25)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  .exp-item{grid-template-columns:1fr;gap:1rem}
+  .contact-grid{grid-template-columns:1fr}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .nav-links{display:none}
+  #chat-box{width:calc(100vw - 2rem);height:560px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Umesh <span>Linga</span></div>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="nav-chat-btn" onclick="toggleChat()">
+    <span class="nav-dot"></span> Ask AI
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-chip"><span class="hero-chip-dot"></span> Available for new roles · Indianapolis, IN</div>
+  <h1 class="hero-h1">Bioinformatics<br><em>Data Scientist.</em></h1>
+  <p class="hero-sub">Building end-to-end NGS pipelines that transform raw sequencing reads into actionable genomic insights. Python · AWS · PostgreSQL · GATK.</p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="https://github.com/umeshlinga" class="btn-ghost">GitHub Profile</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-wrap">
+  <div class="stats-bar reveal">
+    <div><div class="stat-num" id="c1">0</div><div class="stat-lbl">Years Experience</div></div>
+    <div><div class="stat-num" id="c2">0+</div><div class="stat-lbl">Datasets / Year</div></div>
+    <div><div class="stat-num" id="c3">0%</div><div class="stat-lbl">Pipeline Time Reduced</div></div>
+    <div><div class="stat-num" id="c4">0</div><div class="stat-lbl">GitHub Projects</div></div>
+  </div>
+</div>
+
+<!-- PIPELINE — with natural SVG icons -->
+<div class="sec-white">
+  <div class="sec-inner">
+    <div class="sec-eyebrow reveal">WORKFLOW</div>
+    <h2 class="sec-h2 reveal">The NGS <em>Pipeline.</em></h2>
+    <p class="sec-p reveal">From raw sequencing reads to annotated variants — every step automated, validated, and reproducible at scale.</p>
+    <div class="pipeline-wrap reveal">
+
+      <!-- FASTQ — double helix -->
+      <div class="pipe-step">
+        <div class="pipe-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <path d="M10 6 Q18 12 26 6" stroke="#00c4a7" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M10 11 Q18 17 26 11" stroke="#0071e3" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M10 16 Q18 22 26 16" stroke="#00c4a7" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M10 21 Q18 27 26 21" stroke="#0071e3" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M10 26 Q18 32 26 26" stroke="#00c4a7" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <line x1="10" y1="6" x2="10" y2="30" stroke="#00c4a7" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+            <line x1="26" y1="6" x2="26" y2="30" stroke="#0071e3" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+            <circle cx="10" cy="11" r="2" fill="#00c4a7" opacity="0.7"/>
+            <circle cx="26" cy="16" r="2" fill="#0071e3" opacity="0.7"/>
+            <circle cx="10" cy="21" r="2" fill="#00c4a7" opacity="0.7"/>
+          </svg>
+        </div>
+        <div class="pipe-label">FASTQ</div>
+        <div class="pipe-sub">Raw reads</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- QC — microscope lens -->
+      <div class="pipe-step">
+        <div class="pipe-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <circle cx="16" cy="15" r="9" stroke="#00c4a7" stroke-width="2" fill="none"/>
+            <circle cx="16" cy="15" r="5" stroke="#0071e3" stroke-width="1.5" fill="rgba(0,196,167,0.06)"/>
+            <circle cx="16" cy="15" r="2" fill="#00c4a7" opacity="0.7"/>
+            <line x1="23" y1="22" x2="29" y2="29" stroke="#6e6e73" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="13" y1="24" x2="13" y2="30" stroke="#00c4a7" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="10" y1="30" x2="16" y2="30" stroke="#00c4a7" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M20 9 L22 7" stroke="#0071e3" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M24 13 L26 12" stroke="#0071e3" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="pipe-label">Quality Control</div>
+        <div class="pipe-sub">Phred scores</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- ALIGNMENT — target/crosshair on genome -->
+      <div class="pipe-step">
+        <div class="pipe-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="12" stroke="#0071e3" stroke-width="1.5" fill="none"/>
+            <circle cx="18" cy="18" r="7" stroke="#00c4a7" stroke-width="1.5" fill="none"/>
+            <circle cx="18" cy="18" r="3" fill="#00c4a7" opacity="0.8"/>
+            <line x1="18" y1="4" x2="18" y2="10" stroke="#0071e3" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="18" y1="26" x2="18" y2="32" stroke="#0071e3" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="4" y1="18" x2="10" y2="18" stroke="#0071e3" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="26" y1="18" x2="32" y2="18" stroke="#0071e3" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="pipe-label">Alignment</div>
+        <div class="pipe-sub">BWA-MEM</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- BAM — stacked reads -->
+      <div class="pipe-step">
+        <div class="pipe-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <rect x="5" y="8" width="26" height="5" rx="2.5" fill="#00c4a7" opacity="0.9"/>
+            <rect x="8" y="15" width="20" height="5" rx="2.5" fill="#0071e3" opacity="0.8"/>
+            <rect x="5" y="22" width="22" height="5" rx="2.5" fill="#00c4a7" opacity="0.6"/>
+            <rect x="10" y="22" width="6" height="5" rx="2.5" fill="#f59e0b" opacity="0.9"/>
+            <line x1="18" y1="5" x2="18" y2="30" stroke="rgba(110,110,115,0.3)" stroke-width="1" stroke-dasharray="2 2"/>
+            <text x="18" y="33" text-anchor="middle" font-size="7" fill="#86868b" font-family="sans-serif">REF</text>
+          </svg>
+        </div>
+        <div class="pipe-label">BAM Process</div>
+        <div class="pipe-sub">Sort & index</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- VARIANT CALLING — DNA with mutation -->
+      <div class="pipe-step">
+        <div class="pipe-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <path d="M8 8 L28 28" stroke="#86868b" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+            <rect x="6" y="6" width="10" height="6" rx="3" fill="#0071e3" opacity="0.85"/>
+            <rect x="20" y="6" width="10" height="6" rx="3" fill="#0071e3" opacity="0.85"/>
+            <rect x="6" y="24" width="10" height="6" rx="3" fill="#0071e3" opacity="0.85"/>
+            <rect x="20" y="24" width="10" height="6" rx="3" fill="#f59e0b" opacity="0.95"/>
+            <circle cx="25" cy="27" r="3" fill="#ff3b30"/>
+            <text x="25" y="29" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif" font-weight="bold">SNP</text>
+          </svg>
+        </div>
+        <div class="pipe-label">Variant Calling</div>
+        <div class="pipe-sub">GATK</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- ANNOTATION — VCF tag -->
+      <div class="pipe-step">
+        <div class="pipe-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <rect x="5" y="6" width="20" height="24" rx="3" fill="none" stroke="#0071e3" stroke-width="1.5"/>
+            <path d="M25 10 L31 16 L25 22" fill="none" stroke="#00c4a7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="9" y1="12" x2="19" y2="12" stroke="#00c4a7" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="9" y1="17" x2="19" y2="17" stroke="#0071e3" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+            <line x1="9" y1="22" x2="16" y2="22" stroke="#0071e3" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+            <circle cx="21" cy="25" r="5" fill="#00c4a7"/>
+            <text x="21" y="27.5" text-anchor="middle" font-size="6.5" fill="white" font-family="sans-serif" font-weight="bold">VEP</text>
+          </svg>
+        </div>
+        <div class="pipe-label">Annotation</div>
+        <div class="pipe-sub">Ensembl VEP</div>
+      </div>
+      <div class="pipe-arr">›</div>
+
+      <!-- REPORT — chart with DNA -->
+      <div class="pipe-step">
+        <div class="pipe-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <rect x="5" y="5" width="26" height="26" rx="4" fill="none" stroke="#86868b" stroke-width="1.2" opacity="0.3"/>
+            <rect x="9" y="22" width="4" height="7" rx="1" fill="#0071e3" opacity="0.7"/>
+            <rect x="15" y="16" width="4" height="13" rx="1" fill="#00c4a7" opacity="0.9"/>
+            <rect x="21" y="19" width="4" height="10" rx="1" fill="#0071e3" opacity="0.6"/>
+            <circle cx="27" cy="10" r="4" fill="none" stroke="#00c4a7" stroke-width="1.5"/>
+            <path d="M24 10 Q27 7 30 10" stroke="#00c4a7" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M24 10 Q27 13 30 10" stroke="#0071e3" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="pipe-label">Report</div>
+        <div class="pipe-sub">JSON + HTML</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="sec-off" id="skills">
+  <div class="sec-inner">
+    <div class="sec-eyebrow reveal">CAPABILITIES</div>
+    <h2 class="sec-h2 reveal">Built for <em>Scale.</em></h2>
+    <p class="sec-p reveal">5+ years of production bioinformatics — from raw reads to clinical insights.</p>
+    <div class="skills-grid-apple">
+      <div class="skill-card-apple reveal">
+        <div class="skill-card-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M8 4 Q16 10 24 4" stroke="#00c4a7" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M8 9 Q16 15 24 9" stroke="#0071e3" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M8 14 Q16 20 24 14" stroke="#00c4a7" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M8 19 Q16 25 24 19" stroke="#0071e3" stroke-width="2" stroke-linecap="round" fill="none"/><line x1="8" y1="4" x2="8" y2="22" stroke="#00c4a7" stroke-width="1.2" opacity="0.4"/><line x1="24" y1="4" x2="24" y2="22" stroke="#0071e3" stroke-width="1.2" opacity="0.4"/></svg>
+        </div>
+        <div class="skill-card-title">NGS Analysis</div>
+        <div class="skill-card-sub">DNA-seq · RNA-seq · WGS · WES</div>
+        <div class="skill-tags-apple"><span class="skill-tag">FASTQ</span><span class="skill-tag">BAM</span><span class="skill-tag">VCF</span><span class="skill-tag">Variant Calling</span></div>
+      </div>
+      <div class="skill-card-apple reveal">
+        <div class="skill-card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="11" height="11" rx="2" fill="none" stroke="#0071e3" stroke-width="1.8"/><rect x="17" y="4" width="11" height="11" rx="2" fill="none" stroke="#00c4a7" stroke-width="1.8"/><rect x="4" y="17" width="11" height="11" rx="2" fill="none" stroke="#00c4a7" stroke-width="1.8"/><rect x="17" y="17" width="11" height="11" rx="2" fill="rgba(0,196,167,0.1)" stroke="#0071e3" stroke-width="1.8"/><line x1="15" y1="9.5" x2="17" y2="9.5" stroke="#86868b" stroke-width="1.2"/><line x1="15" y1="22.5" x2="17" y2="22.5" stroke="#86868b" stroke-width="1.2"/><line x1="9.5" y1="15" x2="9.5" y2="17" stroke="#86868b" stroke-width="1.2"/><line x1="22.5" y1="15" x2="22.5" y2="17" stroke="#86868b" stroke-width="1.2"/></svg></div>
+        <div class="skill-card-title">Python Engineering</div>
+        <div class="skill-card-sub">OOP · Modular · Tested</div>
+        <div class="skill-tags-apple"><span class="skill-tag">Python 3.10</span><span class="skill-tag">Pytest</span><span class="skill-tag">REST API</span><span class="skill-tag">Bash</span></div>
+      </div>
+      <div class="skill-card-apple reveal">
+        <div class="skill-card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4 C8 4 4 9 4 16 C4 23 8 28 16 28 C24 28 28 23 28 16 C28 9 24 4 16 4Z" stroke="#0071e3" stroke-width="1.5" fill="none"/><path d="M16 4 C20 8 22 12 22 16 C22 20 20 24 16 28" stroke="#00c4a7" stroke-width="1.5" fill="none"/><path d="M4 16 L28 16" stroke="#86868b" stroke-width="1" opacity="0.3"/><circle cx="16" cy="16" r="3" fill="#00c4a7" opacity="0.8"/></svg></div>
+        <div class="skill-card-title">Cloud & HPC</div>
+        <div class="skill-card-sub">AWS · GCP · HPC Clusters</div>
+        <div class="skill-tags-apple"><span class="skill-tag">AWS S3</span><span class="skill-tag">EC2</span><span class="skill-tag">Batch</span><span class="skill-tag">GCP</span></div>
+      </div>
+      <div class="skill-card-apple reveal">
+        <div class="skill-card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><ellipse cx="16" cy="10" rx="12" ry="5" stroke="#0071e3" stroke-width="1.5" fill="none"/><path d="M4 10 L4 22 C4 24.8 9.4 27 16 27 C22.6 27 28 24.8 28 22 L28 10" stroke="#0071e3" stroke-width="1.5" fill="none"/><path d="M4 16 C4 18.8 9.4 21 16 21 C22.6 21 28 18.8 28 16" stroke="#00c4a7" stroke-width="1.2" fill="none"/><line x1="10" y1="14" x2="22" y2="14" stroke="#00c4a7" stroke-width="1" opacity="0.5"/></svg></div>
+        <div class="skill-card-title">Data Engineering</div>
+        <div class="skill-card-sub">SQL · PostgreSQL · MySQL</div>
+        <div class="skill-tags-apple"><span class="skill-tag">PostgreSQL</span><span class="skill-tag">MySQL</span><span class="skill-tag">psycopg2</span></div>
+      </div>
+      <div class="skill-card-apple reveal">
+        <div class="skill-card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="13" r="8" stroke="#00c4a7" stroke-width="1.5" fill="none"/><circle cx="16" cy="13" r="4" stroke="#0071e3" stroke-width="1.2" fill="rgba(0,196,167,0.06)"/><line x1="16" y1="21" x2="16" y2="28" stroke="#86868b" stroke-width="1.8" stroke-linecap="round"/><line x1="11" y1="28" x2="21" y2="28" stroke="#86868b" stroke-width="1.8" stroke-linecap="round"/><line x1="19" y1="6" x2="21" y2="4" stroke="#0071e3" stroke-width="1.2" stroke-linecap="round"/><line x1="23" y1="10" x2="25" y2="9" stroke="#0071e3" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        <div class="skill-card-title">Bioinformatics Tools</div>
+        <div class="skill-card-sub">GATK · STAR · BWA · VEP</div>
+        <div class="skill-tags-apple"><span class="skill-tag">GATK</span><span class="skill-tag">STAR</span><span class="skill-tag">BWA-MEM</span><span class="skill-tag">VEP</span></div>
+      </div>
+      <div class="skill-card-apple reveal">
+        <div class="skill-card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="3" y="20" width="5" height="9" rx="1.5" fill="#0071e3" opacity="0.7"/><rect x="10" y="14" width="5" height="15" rx="1.5" fill="#00c4a7" opacity="0.9"/><rect x="17" y="17" width="5" height="12" rx="1.5" fill="#0071e3" opacity="0.6"/><rect x="24" y="11" width="5" height="18" rx="1.5" fill="#00c4a7" opacity="0.8"/><path d="M5.5 20 Q12.5 10 19.5 17 Q23 20 26.5 11" stroke="#f59e0b" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="skill-card-title">Transcriptomics</div>
+        <div class="skill-card-sub">RNA-seq · featureCounts · DESeq2</div>
+        <div class="skill-tags-apple"><span class="skill-tag">featureCounts</span><span class="skill-tag">Trimmomatic</span><span class="skill-tag">MultiQC</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS — DARK -->
+<div class="sec-dark" id="projects">
+  <div class="sec-inner">
+    <div class="sec-eyebrow reveal" style="color:var(--teal)">OPEN SOURCE</div>
+    <h2 class="sec-h2 reveal" style="color:white">Three Projects.<br><em>Real Impact.</em></h2>
+    <div class="projects-grid">
+      <div class="proj-card reveal">
+        <div class="proj-icon-dark"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M10 5 Q20 12 30 5" stroke="#00c4a7" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M10 12 Q20 19 30 12" stroke="#0071e3" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M10 19 Q20 26 30 19" stroke="#00c4a7" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M10 26 Q20 33 30 26" stroke="#0071e3" stroke-width="2.5" stroke-linecap="round" fill="none"/><line x1="10" y1="5" x2="10" y2="30" stroke="#00c4a7" stroke-width="1.5" opacity="0.4"/><line x1="30" y1="5" x2="30" y2="30" stroke="#0071e3" stroke-width="1.5" opacity="0.4"/></svg></div>
+        <div class="proj-num">01 — NGS PIPELINE</div>
+        <div class="proj-title-d">End-to-End NGS Pipeline</div>
+        <div class="proj-desc-d">Modular Python + Bash: FASTQ → BWA-MEM → GATK HaplotypeCaller → Ensembl VEP → PostgreSQL. Full test suite.</div>
+        <div class="proj-metrics-d"><div class="proj-metric-d">35% less manual intervention</div><div class="proj-metric-d">30% faster variant retrieval</div><div class="proj-metric-d">500+ datasets/year</div></div>
+        <div class="proj-tags-d"><span class="proj-tag-d">Python</span><span class="proj-tag-d">GATK</span><span class="proj-tag-d">BWA</span><span class="proj-tag-d">PostgreSQL</span><span class="proj-tag-d">AWS</span></div>
+        <a href="https://github.com/umeshlinga/ngs-pipeline" class="proj-link-d">View on GitHub →</a>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-icon-dark"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="18" width="28" height="6" rx="3" fill="#0071e3" opacity="0.85"/><rect x="9" y="10" width="22" height="6" rx="3" fill="#00c4a7" opacity="0.75"/><rect x="6" y="26" width="28" height="6" rx="3" fill="#00c4a7" opacity="0.6"/><rect x="14" y="26" width="8" height="6" rx="3" fill="#f59e0b" opacity="0.9"/><line x1="20" y1="5" x2="20" y2="35" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="2 2"/></svg></div>
+        <div class="proj-num">02 — RNA-SEQ</div>
+        <div class="proj-title-d">Scalable RNA-seq Framework</div>
+        <div class="proj-desc-d">Trimmomatic → STAR 2-pass → featureCounts → count matrix. Auto HTML QC reports. AWS Batch parallel processing.</div>
+        <div class="proj-metrics-d"><div class="proj-metric-d">28% faster turnaround</div><div class="proj-metric-d">15 Pytest unit tests</div><div class="proj-metric-d">Auto HTML QC report</div></div>
+        <div class="proj-tags-d"><span class="proj-tag-d">STAR</span><span class="proj-tag-d">featureCounts</span><span class="proj-tag-d">Trimmomatic</span><span class="proj-tag-d">AWS Batch</span></div>
+        <a href="https://github.com/umeshlinga/rnaseq-framework" class="proj-link-d">View on GitHub →</a>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-icon-dark"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="12" rx="14" ry="6" stroke="#0071e3" stroke-width="2" fill="none"/><path d="M6 12 L6 28 C6 31.3 12.3 34 20 34 C27.7 34 34 31.3 34 28 L34 12" stroke="#0071e3" stroke-width="2" fill="none"/><path d="M6 20 C6 23.3 12.3 26 20 26 C27.7 26 34 23.3 34 20" stroke="#00c4a7" stroke-width="1.5" fill="none"/><line x1="12" y1="17" x2="28" y2="17" stroke="#00c4a7" stroke-width="1" opacity="0.4"/></svg></div>
+        <div class="proj-num">03 — DATA MGMT</div>
+        <div class="proj-title-d">Genomic Data Management</div>
+        <div class="proj-desc-d">8-table PostgreSQL schema, Ensembl REST API batch annotation, priority-ranked variant HTML/JSON reports. 13 tests.</div>
+        <div class="proj-metrics-d"><div class="proj-metric-d">32% faster cohort retrieval</div><div class="proj-metric-d">22% shorter report time</div><div class="proj-metric-d">13 Pytest unit tests</div></div>
+        <div class="proj-tags-d"><span class="proj-tag-d">PostgreSQL</span><span class="proj-tag-d">Ensembl API</span><span class="proj-tag-d">REST API</span><span class="proj-tag-d">Pytest</span></div>
+        <a href="https://github.com/umeshlinga/genomic-data-mgmt" class="proj-link-d">View on GitHub →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="sec-white" id="experience">
+  <div class="sec-inner">
+    <div class="sec-eyebrow reveal">CAREER</div>
+    <h2 class="sec-h2 reveal">Work <em>Experience.</em></h2>
+    <div class="exp-list">
+      <div class="exp-item reveal">
+        <div class="exp-date"><strong>Current</strong>May 2025 — Present<br>Indianapolis, IN</div>
+        <div><div class="exp-role">Bioinformatics Analyst</div><div class="exp-org">Translation Commons</div><ul class="exp-pts"><li>NGS pipelines (Python + Bash, AWS HPC) — reduced processing time 30% across 500+ datasets/year</li><li>Scalable RNA-seq workflows with automated Pytest QC — lowered reanalysis requests by 18%</li><li>Optimized PostgreSQL BAM/VCF tracking — increased variant retrieval speed by 35%</li></ul></div>
+      </div>
+      <div class="exp-item reveal">
+        <div class="exp-date"><strong>Graduate</strong>Aug 2023 — May 2025<br>Indianapolis, IN</div>
+        <div><div class="exp-role">Graduate Research Assistant</div><div class="exp-org">Indiana University · Bioinformatics</div><ul class="exp-pts"><li>DNA-seq and RNA-seq across 12+ concurrent academic studies using OOP Python workflows</li><li>Refactored Bash scripts to modular Python — reduced pipeline runtime by 30%</li><li>Transcriptome analysis scripts improving gene expression consistency by 22%</li></ul></div>
+      </div>
+      <div class="exp-item reveal">
+        <div class="exp-date"><strong>Industry</strong>Jun 2020 — Jul 2023<br>Remote</div>
+        <div><div class="exp-role">Bioinformatics Analyst</div><div class="exp-org">Cipla Ltd</div><ul class="exp-pts"><li>Automated genomic reporting pipelines integrating SQL — improved efficiency by 28%</li><li>In silico PCR validation scripts — increased primer specificity screening by 26%</li><li>SQL data storage optimization — decreased cohort retrieval latency by 32%</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="sec-dark" id="contact">
+  <div class="sec-inner">
+    <div class="sec-eyebrow reveal" style="color:var(--teal)">CONNECT</div>
+    <h2 class="sec-h2 reveal" style="color:white">Let's Work <em>Together.</em></h2>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="avail-tag"><span class="avail-dot"></span>Open to opportunities</div>
+        <p style="font-size:15px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:2rem">Bioinformatics data scientist roles where I can build scalable genomic pipelines and drive data-driven research decisions.</p>
+        <div style="font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:1px;margin-bottom:0.75rem">EDUCATION</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:6px">M.S. Bioinformatics · Indiana University · 2025</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6)">B.S. Bioinformatics · Saveetha Engineering College · 2022</div>
+      </div>
+      <div class="reveal">
+        <div class="contact-links">
+          <a href="mailto:Umesh.linga25@gmail.com" class="contact-row"><div><div class="cr-label">EMAIL</div><div class="cr-value">Umesh.linga25@gmail.com</div></div><div style="color:rgba(255,255,255,0.3);font-size:20px">›</div></a>
+          <a href="https://github.com/umeshlinga" class="contact-row"><div><div class="cr-label">GITHUB</div><div class="cr-value">github.com/umeshlinga</div></div><div style="color:rgba(255,255,255,0.3);font-size:20px">›</div></a>
+          <a href="https://linkedin.com/in/umeshlinga" class="contact-row"><div><div class="cr-label">LINKEDIN</div><div class="cr-value">linkedin.com/in/umeshlinga</div></div><div style="color:rgba(255,255,255,0.3);font-size:20px">›</div></a>
+          <div class="contact-row" style="cursor:default"><div><div class="cr-label">LOCATION</div><div class="cr-value">Indianapolis, Indiana · USA</div></div><div style="color:rgba(255,255,255,0.15);font-size:20px">›</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>Copyright © 2025 Umesh Linga · Bioinformatics Data Scientist · Indianapolis, IN</footer>
+
+<!-- CHAT FAB -->
+<button id="chat-fab" onclick="toggleChat()" aria-label="Open AI assistant">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+  <span class="fab-badge" id="fab-badge"></span>
+</button>
+
+<!-- CHAT OVERLAY -->
+<div id="chat-overlay">
+  <div id="chat-box">
+    <div class="chat-hdr">
+      <div class="chat-hdr-l">
+        <div class="chat-av">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 4 Q10 7 14 4" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M6 8 Q10 11 14 8" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M6 12 Q10 15 14 12" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/><line x1="6" y1="4" x2="6" y2="14" stroke="white" stroke-width="1" opacity="0.4"/><line x1="14" y1="4" x2="14" y2="14" stroke="rgba(255,255,255,0.7)" stroke-width="1" opacity="0.4"/></svg>
+        </div>
+        <div>
+          <div class="chat-name">Umesh's AI Assistant</div>
+          <div class="chat-status"><span class="chat-status-dot"></span>Online · Powered by Claude</div>
+        </div>
+      </div>
+      <button class="chat-close-btn" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-msgs" id="chat-msgs">
+      <div class="msg bot">
+        <div class="msg-bubble">Hi! I'm Umesh's AI assistant. I can tell you about his bioinformatics work, skills, and projects — or help you schedule a meeting or call with him! 🧬</div>
+        <div class="msg-time">just now</div>
+      </div>
+    </div>
+    <div class="chat-sugg" id="chat-sugg">
+      <button class="sugg-btn" onclick="sendSugg(this)">Tell me about his projects</button>
+      <button class="sugg-btn" onclick="sendSugg(this)">Schedule a meeting</button>
+      <button class="sugg-btn" onclick="sendSugg(this)">What are his top skills?</button>
+      <button class="sugg-btn" onclick="sendSugg(this)">Is he open to work?</button>
+    </div>
+    <div class="chat-inp-row">
+      <input class="chat-inp" id="chat-inp" placeholder="Ask anything or schedule a call..." onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="send-btn" id="send-btn" onclick="sendMsg()">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Hero canvas
+const hc=document.getElementById('hero-canvas');
+const hx=hc.getContext('2d');
+function rh(){hc.width=hc.parentElement.offsetWidth;hc.height=hc.parentElement.offsetHeight}
+rh();window.addEventListener('resize',rh);
+const hp=Array.from({length:50},()=>({x:Math.random()*hc.width,y:Math.random()*hc.height,r:Math.random()*2+1,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,a:Math.random()*0.3+0.1}));
+function dh(){
+  hx.clearRect(0,0,hc.width,hc.height);
+  hp.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=hc.width;if(p.x>hc.width)p.x=0;if(p.y<0)p.y=hc.height;if(p.y>hc.height)p.y=0;hx.beginPath();hx.arc(p.x,p.y,p.r,0,Math.PI*2);hx.fillStyle=`rgba(0,196,167,${p.a})`;hx.fill()});
+  for(let i=0;i<hp.length;i++)for(let j=i+1;j<hp.length;j++){const d=Math.hypot(hp[i].x-hp[j].x,hp[i].y-hp[j].y);if(d<100){hx.beginPath();hx.moveTo(hp[i].x,hp[i].y);hx.lineTo(hp[j].x,hp[j].y);hx.strokeStyle=`rgba(0,196,167,${0.07*(1-d/100)})`;hx.lineWidth=0.5;hx.stroke()}}
+  requestAnimationFrame(dh);}
+dh();
+
+// ── Counters
+function ac(el,end,sfx,dur){let v=0;const s=end/60;const t=setInterval(()=>{v=Math.min(v+s,end);el.textContent=Math.floor(v)+(sfx||'');if(v>=end)clearInterval(t)},dur/60)}
+const co=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){ac(document.getElementById('c1'),5,'+',1200);ac(document.getElementById('c2'),500,'+',1500);ac(document.getElementById('c3'),30,'%',1200);ac(document.getElementById('c4'),3,'',1000);co.disconnect()}})},{threshold:0.5});
+const sb=document.querySelector('.stats-bar');if(sb)co.observe(sb);
+
+// ── Scroll reveal
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')})},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// ── Chat
+let chatOpen=false;
+const msgHistory=[];
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-overlay').classList.toggle('open',chatOpen);
+  document.getElementById('fab-badge').style.display=chatOpen?'none':'block';
+  if(chatOpen)setTimeout(()=>document.getElementById('chat-inp').focus(),400);
+}
+
+function addMsg(role,html){
+  const msgs=document.getElementById('chat-msgs');
+  const d=document.createElement('div');d.className=`msg ${role}`;
+  const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  d.innerHTML=`<div class="msg-bubble">${html}</div><div class="msg-time">${now}</div>`;
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+}
+
+function showTyping(){
+  const msgs=document.getElementById('chat-msgs');
+  const d=document.createElement('div');d.className='msg bot';d.id='typing-ind';
+  d.innerHTML='<div class="typing"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>';
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+}
+function hideTyping(){const t=document.getElementById('typing-ind');if(t)t.remove()}
+
+// Meeting card builder
+function buildMeetingCard(){
+  const today=new Date();
+  const slots=[];
+  for(let d=1;d<=5;d++){
+    const dt=new Date(today);dt.setDate(today.getDate()+d);
+    if(dt.getDay()===0||dt.getDay()===6)continue;
+    const dayName=dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    const times=['10:00 AM','2:00 PM','4:00 PM'];
+    times.forEach(t=>{
+      if(slots.length<4)slots.push({day:dayName,time:t});
+    });
+  }
+  let html=`<div class="meeting-card"><div class="meeting-card-title"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="11" rx="2" stroke="#0071e3" stroke-width="1.2"/><line x1="1" y1="5" x2="13" y2="5" stroke="#0071e3" stroke-width="1.2"/><line x1="4" y1="1" x2="4" y2="3" stroke="#0071e3" stroke-width="1.2" stroke-linecap="round"/><line x1="10" y1="1" x2="10" y2="3" stroke="#0071e3" stroke-width="1.2" stroke-linecap="round"/></svg> Pick a time slot</div><div class="meeting-slots">`;
+  slots.slice(0,4).forEach((s,i)=>{
+    html+=`<button class="slot-btn" onclick="selectSlot(this,'${s.day}','${s.time}')"><div><div class="slot-time">${s.day}</div><div class="slot-type">${s.time} · 30 min video call</div></div><span style="color:var(--teal);font-size:12px">Select</span></button>`;
+  });
+  html+=`</div><button class="confirm-btn" id="confirm-btn" disabled onclick="confirmMeeting()">Select a time to confirm</button></div>`;
+  return html;
+}
+
+let selectedSlot=null;
+function selectSlot(btn,day,time){
+  document.querySelectorAll('.slot-btn').forEach(b=>{b.style.borderColor='';b.style.color=''});
+  btn.style.borderColor='var(--teal)';btn.style.color='var(--teal2)';
+  selectedSlot={day,time};
+  const cb=document.getElementById('confirm-btn');
+  if(cb){cb.disabled=false;cb.textContent=`Confirm: ${day} at ${time}`}
+}
+function confirmMeeting(){
+  if(!selectedSlot)return;
+  document.querySelectorAll('.meeting-card').forEach(c=>c.remove());
+  addMsg('bot',`Great! Your meeting is confirmed for <strong>${selectedSlot.day} at ${selectedSlot.time}</strong> CST. 🎉\n\nUmesh will send a calendar invite to your email. You can also reach him directly at <strong>Umesh.linga25@gmail.com</strong> to confirm details.\n\nAnything else you'd like to know?`);
+  selectedSlot=null;
+}
+
+async function sendMsg(){
+  const inp=document.getElementById('chat-inp');
+  const txt=inp.value.trim();if(!txt)return;
+  document.getElementById('chat-sugg').style.display='none';
+  addMsg('user',txt);
+  msgHistory.push({role:'user',content:txt});
+  inp.value='';
+  document.getElementById('send-btn').disabled=true;
+  showTyping();
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:`You are a friendly and professional AI assistant for Umesh Linga's bioinformatics portfolio website. You help visitors learn about Umesh and schedule meetings with him.
+
+ABOUT UMESH LINGA:
+- Bioinformatics Data Scientist with 5+ years experience
+- Currently: Bioinformatics Analyst at Translation Commons (May 2025-present), Indianapolis IN
+- Previous: Graduate Research Assistant at Indiana University (Aug 2023-May 2025)  
+- Previous: Bioinformatics Analyst at Cipla Ltd (Jun 2020-Jul 2023)
+- Education: M.S. Bioinformatics, Indiana University 2025; B.S. Bioinformatics, Saveetha Engineering College 2022
+- Email: Umesh.linga25@gmail.com | GitHub: github.com/umeshlinga | Location: Indianapolis, Indiana
+- Open to new bioinformatics data scientist and computational biology roles
+
+SKILLS: Python (OOP, modular architecture), Bash, SQL (PostgreSQL, MySQL), Pytest, REST APIs, Git, FASTQ/BAM/VCF processing, sequence alignment, variant calling, transcriptome analysis, AWS (S3, EC2, Batch), GCP, HPC environments, GATK, STAR, BWA-MEM, Samtools, featureCounts, Trimmomatic, Ensembl VEP
+
+PROJECTS:
+1. ngs-pipeline (github.com/umeshlinga/ngs-pipeline): End-to-end NGS pipeline FASTQ→variant annotation. Python+Bash+GATK+BWA+PostgreSQL+Pytest+AWS. Reduced manual intervention 35%, faster variant retrieval 30%, 500+ datasets/year. 12 unit tests.
+2. rnaseq-framework (github.com/umeshlinga/rnaseq-framework): RNA-seq workflow with STAR 2-pass, featureCounts, Trimmomatic. 28% faster turnaround, AWS Batch deployment, 15 Pytest tests, auto HTML QC reports.
+3. genomic-data-mgmt (github.com/umeshlinga/genomic-data-mgmt): SQL-driven genomic system, 8-table PostgreSQL schema, Ensembl REST API batch annotation, 32% faster cohort retrieval, HTML/JSON reports, 13 Pytest tests.
+
+KEY ACHIEVEMENTS:
+- 30% reduction in end-to-end genomic processing time across 500+ datasets annually
+- 35% increase in variant retrieval speed via optimized PostgreSQL indexing
+- 18% reduction in reanalysis requests with automated QC validation  
+- 30% pipeline runtime improvement by refactoring Bash to modular Python
+- 40+ total unit tests across all 3 projects
+
+SCHEDULING: When someone wants to schedule a meeting, phone call, or video call, respond warmly and say you'll show them available time slots. End your response with exactly the text: [SHOW_MEETING_SLOTS]
+
+COMMUNICATION STYLE:
+- Warm, professional, and concise
+- Use bullet points for lists
+- Keep responses under 150 words unless asked for detail
+- If asked about scheduling/meeting/call/interview, always trigger [SHOW_MEETING_SLOTS]
+- For questions outside Umesh's profile, gently redirect`,
+        messages:msgHistory
+      })
+    });
+
+    const data=await res.json();
+    hideTyping();
+    let reply=data.content&&data.content[0]?data.content[0].text:'Sorry, I had trouble connecting. Please try again!';
+    msgHistory.push({role:'assistant',content:reply});
+
+    const showSlots=reply.includes('[SHOW_MEETING_SLOTS]');
+    reply=reply.replace('[SHOW_MEETING_SLOTS]','').trim();
+
+    addMsg('bot',reply.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>'));
+
+    if(showSlots){
+      setTimeout(()=>{
+        const msgs=document.getElementById('chat-msgs');
+        const d=document.createElement('div');d.className='msg bot';
+        d.innerHTML=buildMeetingCard();
+        msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+      },400);
+    }
+  }catch(e){
+    hideTyping();
+    addMsg('bot','Sorry, I had a connection issue. Please try again or email Umesh directly at Umesh.linga25@gmail.com 🧬');
+  }
+  document.getElementById('send-btn').disabled=false;
+  document.getElementById('chat-inp').focus();
+}
+
+function sendSugg(btn){
+  document.getElementById('chat-inp').value=btn.textContent;
+  sendMsg();
+}
+</script>
+</body>
+</html>
