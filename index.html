@@ -667,7 +667,7 @@ async function sendMsg(){
   showTyping();
 
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch('https://biome-platform-umesh.netlify.app/.netlify/functions/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
