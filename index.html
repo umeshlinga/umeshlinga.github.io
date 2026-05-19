@@ -186,6 +186,26 @@ footer{background:var(--dark);padding:2rem;border-top:1px solid rgba(255,255,255
   #chat-box{width:calc(100vw - 2rem);height:560px}
 }
 </style>
+
+<style>
+.popup-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;}
+.popup-overlay.active{display:flex;}
+.popup-box{background:#1a1a2e;border:1px solid rgba(0,196,167,0.3);border-radius:20px;padding:32px;max-width:480px;width:90%;text-align:center;animation:popIn 0.3s ease;}
+@keyframes popIn{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
+.popup-box h3{color:#00c4a7;font-size:1.4rem;margin-bottom:12px;}
+.popup-box p{color:#aaa;margin-bottom:20px;}
+.popup-btn{display:inline-block;padding:12px 28px;background:#00c4a7;color:#000;border-radius:12px;font-weight:700;text-decoration:none;margin:6px;transition:all 0.2s;}
+.popup-btn:hover{background:#00a88e;transform:translateY(-2px);}
+.popup-btn.secondary{background:transparent;color:#00c4a7;border:1px solid #00c4a7;}
+.popup-close{position:absolute;top:16px;right:20px;color:#aaa;font-size:24px;cursor:pointer;background:none;border:none;}
+.skill-chart{margin-bottom:16px;}
+.skill-name{display:flex;justify-content:space-between;color:#ddd;font-size:13px;margin-bottom:6px;}
+.skill-bar{height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden;}
+.skill-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#00c4a7,#0071e3);width:0%;transition:width 1.5s ease;}
+.skills-chart-section{padding:60px 20px;max-width:800px;margin:0 auto;}
+.appt-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#00c4a7,#0071e3);color:#fff;border-radius:14px;font-weight:700;font-size:15px;text-decoration:none;margin-top:20px;transition:all 0.3s;border:none;cursor:pointer;}
+.appt-btn:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,196,167,0.4);}
+</style>
 </head>
 <body>
 
@@ -211,7 +231,7 @@ footer{background:var(--dark);padding:2rem;border-top:1px solid rgba(255,255,255
   <p class="hero-sub">Building end-to-end NGS pipelines that transform raw sequencing reads into actionable genomic insights. Python · AWS · PostgreSQL · GATK.</p>
   <div class="hero-btns">
     <a href="#projects" class="btn-primary">View Projects</a>
-    <a href="https://github.com/umeshlinga" class="btn-ghost">GitHub Profile</a>
+    <a href="https://github.com/umeshlinga" target="_blank" class="btn-ghost">GitHub Profile</a>
   </div>
 </section>
 
@@ -497,7 +517,7 @@ footer{background:var(--dark);padding:2rem;border-top:1px solid rgba(255,255,255
       <div class="reveal">
         <div class="contact-links">
           <a href="mailto:Umesh.linga25@gmail.com" class="contact-row"><div><div class="cr-label">EMAIL</div><div class="cr-value">Umesh.linga25@gmail.com</div></div><div style="color:rgba(255,255,255,0.3);font-size:20px">›</div></a>
-          <a href="https://github.com/umeshlinga" class="contact-row"><div><div class="cr-label">GITHUB</div><div class="cr-value">github.com/umeshlinga</div></div><div style="color:rgba(255,255,255,0.3);font-size:20px">›</div></a>
+          <a href="https://github.com/umeshlinga" target="_blank" class="contact-row"><div><div class="cr-label">GITHUB</div><div class="cr-value">github.com/umeshlinga</div></div><div style="color:rgba(255,255,255,0.3);font-size:20px">›</div></a>
           <a href="https://linkedin.com/in/umeshlinga" class="contact-row"><div><div class="cr-label">LINKEDIN</div><div class="cr-value">linkedin.com/in/umeshlinga</div></div><div style="color:rgba(255,255,255,0.3);font-size:20px">›</div></a>
           <div class="contact-row" style="cursor:default"><div><div class="cr-label">LOCATION</div><div class="cr-value">Indianapolis, Indiana · USA</div></div><div style="color:rgba(255,255,255,0.15);font-size:20px">›</div></div>
         </div>
@@ -506,7 +526,7 @@ footer{background:var(--dark);padding:2rem;border-top:1px solid rgba(255,255,255
   </div>
 </div>
 
-<footer>Copyright © 2025 Umesh Linga · Bioinformatics Data Scientist · Indianapolis, IN</footer>
+<footer>Copyright © 2025 Umesh Linga · Bioinformatics Engineer · Indianapolis, IN</footer>
 
 <!-- CHAT FAB -->
 <button id="chat-fab" onclick="toggleChat()" aria-label="Open AI assistant">
@@ -720,6 +740,99 @@ function sendSugg(btn){
   document.getElementById('chat-inp').value=btn.textContent;
   sendMsg();
 }
+</script>
+
+<div class="popup-overlay" id="linkedin-popup">
+  <div class="popup-box" style="position:relative">
+    <button class="popup-close" onclick="document.getElementById('linkedin-popup').classList.remove('active')">×</button>
+    <h3>🔗 Connect on LinkedIn</h3>
+    <p>Let's connect! View Umesh's full profile, experience, and recommendations.</p>
+    <a href="https://linkedin.com/in/umeshlinga" target="_blank" class="popup-btn" onclick="document.getElementById('linkedin-popup').classList.remove('active')">Open LinkedIn Profile →</a>
+    <br>
+    <button class="popup-btn secondary" onclick="document.getElementById('linkedin-popup').classList.remove('active')">Maybe later</button>
+  </div>
+</div>
+
+<div class="popup-overlay" id="appt-popup">
+  <div class="popup-box" style="position:relative">
+    <button class="popup-close" onclick="document.getElementById('appt-popup').classList.remove('active')">×</button>
+    <h3>📅 Book a Meeting with Umesh</h3>
+    <p>Schedule a 30-minute call to discuss bioinformatics projects, roles, or collaborations.</p>
+    <a href="mailto:Umesh.linga25@gmail.com?subject=Meeting Request&body=Hi Umesh, I'd like to schedule a meeting to discuss..." target="_blank" class="popup-btn">📧 Email to Schedule</a>
+    <br>
+    <a href="https://linkedin.com/in/umeshlinga" target="_blank" class="popup-btn secondary">Message on LinkedIn</a>
+  </div>
+</div>
+
+<script>
+// Fix LinkedIn links to show popup
+document.querySelectorAll('a[href*="linkedin"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('linkedin-popup').classList.add('active');
+  });
+});
+
+// Skills chart animation
+const skills = [
+  {name:'Python (OOP · Pytest · REST API)', pct:95},
+  {name:'NGS Pipelines (bwa · STAR · samtools · Picard)', pct:92},
+  {name:'AWS (ECS · Batch · S3 · EC2)', pct:85},
+  {name:'PostgreSQL · MySQL', pct:88},
+  {name:'React · FastAPI', pct:78},
+  {name:'Docker · CI/CD · GitHub Actions', pct:82},
+  {name:'Clinical Ontologies (SNOMED · ICD-10 · LOINC)', pct:80},
+  {name:'Machine Learning on Biological Data', pct:72},
+];
+
+const skillsHTML = `
+<div class="skills-chart-section">
+  <p style="color:#00c4a7;font-size:11px;letter-spacing:2px;margin-bottom:8px">PROFICIENCY</p>
+  <h2 style="color:#fff;font-size:2rem;font-weight:700;margin-bottom:32px">Skills <em style="color:#00c4a7">Overview.</em></h2>
+  ${skills.map(s => `
+  <div class="skill-chart">
+    <div class="skill-name"><span>${s.name}</span><span style="color:#00c4a7">${s.pct}%</span></div>
+    <div class="skill-bar"><div class="skill-fill" data-pct="${s.pct}"></div></div>
+  </div>`).join('')}
+</div>`;
+
+// Insert skills chart before #projects section
+const projSection = document.querySelector('#projects') || document.querySelector('.projects-section');
+if(projSection) {
+  const div = document.createElement('div');
+  div.innerHTML = skillsHTML;
+  projSection.parentNode.insertBefore(div, projSection);
+}
+
+// Animate skill bars on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.querySelectorAll('.skill-fill').forEach(bar => {
+        bar.style.width = bar.dataset.pct + '%';
+      });
+    }
+  });
+}, {threshold: 0.2});
+
+document.querySelectorAll('.skills-chart-section').forEach(el => observer.observe(el));
+
+// Book appointment button
+document.querySelectorAll('a[href*="mailto"], .slot-btn, a[href*="meeting"], a[href*="schedule"]').forEach(a => {
+  if(a.textContent.includes('meeting') || a.textContent.includes('Schedule') || a.textContent.includes('call')) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('appt-popup').classList.add('active');
+    });
+  }
+});
+
+// Close popups on overlay click
+document.querySelectorAll('.popup-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if(e.target === this) this.classList.remove('active');
+  });
+});
 </script>
 </body>
 </html>
