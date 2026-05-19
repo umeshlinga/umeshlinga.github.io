@@ -747,7 +747,7 @@ function sendSugg(btn){
     <button class="popup-close" onclick="document.getElementById('linkedin-popup').classList.remove('active')">×</button>
     <h3>🔗 Connect on LinkedIn</h3>
     <p>Let's connect! View Umesh's full profile, experience, and recommendations.</p>
-    <a href="https://linkedin.com/in/umeshlinga" target="_blank" class="popup-btn" onclick="document.getElementById('linkedin-popup').classList.remove('active')">Open LinkedIn Profile →</a>
+    <a href="https://linkedin.com/in/umeshlinga" target="_blank" class="popup-btn" onclick="window.open('https://linkedin.com/in/umeshlinga','_blank');document.getElementById('linkedin-popup').classList.remove('active');return false;">Open LinkedIn Profile →</a>
     <br>
     <button class="popup-btn secondary" onclick="document.getElementById('linkedin-popup').classList.remove('active')">Maybe later</button>
   </div>
