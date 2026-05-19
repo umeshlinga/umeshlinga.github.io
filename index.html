@@ -558,7 +558,7 @@ dh();
 
 // ── Counters
 function ac(el,end,sfx,dur){let v=0;const s=end/60;const t=setInterval(()=>{v=Math.min(v+s,end);el.textContent=Math.floor(v)+(sfx||'');if(v>=end)clearInterval(t)},dur/60)}
-const co=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){ac(document.getElementById('c1'),5,'+',1200);ac(document.getElementById('c2'),500,'+',1500);ac(document.getElementById('c3'),30,'%',1200);ac(document.getElementById('c4'),3,'',1000);co.disconnect()}})},{threshold:0.5});
+const co=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){ac(document.getElementById('c1'),5,'+',1200);ac(document.getElementById('c2'),500,'+',1500);ac(document.getElementById('c3'),30,'%',1200);ac(document.getElementById('c4'),4,'',1000);co.disconnect()}})},{threshold:0.5});
 const sb=document.querySelector('.stats-bar');if(sb)co.observe(sb);
 
 // ── Scroll reveal
