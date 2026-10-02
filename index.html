@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Umesh Linga — Bioinformatics Engineer</title>
-<meta name="description" content="Umesh Linga — Bioinformatics Engineer. Clinical genomics, NGS pipelines, variant interpretation, agentic AI." />
+<meta name="description" content="Umesh Linga — Bioinformatics Engineer. NGS pipelines, genomic data platforms, variant interpretation, agentic AI, statistical genetics." />
 <style>
   :root{
     --bg:#f5f5f7; --card:#ffffff; --ink:#1d1d1f; --muted:#6e6e73; --line:#d2d2d7;
@@ -51,8 +51,10 @@
   .rv{opacity:0;transform:translateY(42px);transition:opacity .9s ease,transform .95s cubic-bezier(.16,.7,.2,1)}
   .rv.in{opacity:1;transform:none}
   .rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+
+  /* ===== 3D WORLD ===== */
   .worldWrap{width:min(1120px,94vw);margin-top:34px;position:relative;border-radius:28px;overflow:hidden;
-    border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.14);background:linear-gradient(180deg,#cfeeff 0%,#eaf7ee 62%,#f7f3e8 100%)}
+    border:1px solid #232a3f;box-shadow:0 30px 80px rgba(6,10,26,.45);background:linear-gradient(180deg,#141d3d 0%,#0e1428 100%)}
   #world{width:100%;height:min(68vh,560px);display:block;touch-action:none}
   .startOverlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
     background:radial-gradient(720px 380px at 50% 42%,rgba(255,255,255,.25),rgba(10,20,30,.45));color:#fff;text-align:center;padding:20px;transition:opacity .5s ease}
@@ -73,10 +75,14 @@
   @media(pointer:coarse){.pad{display:grid}.worldInfo{bottom:118px}}
   .worldKeys{margin-top:16px;font-family:var(--mono);font-size:12.5px;color:var(--muted);letter-spacing:.08em}
   .worldKeys b{color:var(--ink)}
+
+  /* stats */
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;width:min(1040px,100%);margin-top:54px}
   .stat{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 18px;box-shadow:0 6px 24px rgba(0,0,0,.05)}
   .stat .n{font-size:clamp(2rem,4.5vw,3.1rem);font-weight:800;letter-spacing:-.02em}
   .stat .l{color:var(--muted);font-size:13px;margin-top:6px;letter-spacing:.06em;text-transform:uppercase}
+
+  /* hover-DEEPEN project cards */
   .show{width:min(1060px,100%);text-align:left;margin-top:22px;display:grid;gap:18px}
   .proj{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:32px;cursor:pointer;
     box-shadow:0 6px 24px rgba(0,0,0,.05);transition:box-shadow .35s ease,transform .35s ease,border-color .35s ease;position:relative;overflow:hidden}
@@ -92,8 +98,10 @@
   .proj a{display:inline-block;margin-top:16px;color:var(--blue);font-weight:600;text-decoration:none;font-size:15.5px}
   .chev{position:absolute;top:26px;right:26px;color:#86868b;font-size:20px;transition:transform .4s ease}
   .proj:hover .chev,.proj.open .chev{transform:rotate(45deg)}
+
   .chipset{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:900px;margin-top:36px}
   .chip{font-family:var(--mono);font-size:13px;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:#3a3a3c}
+
   .tl{width:min(820px,100%);text-align:left;margin-top:26px;position:relative;padding-left:30px}
   .tl::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:3px;border-radius:3px;background:linear-gradient(180deg,#e10600,var(--violet),var(--teal),var(--green))}
   .job{position:relative;margin-bottom:30px}
@@ -108,11 +116,13 @@
 <body>
 <div class="aurora" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
 <main>
+
+  <!-- HERO -->
   <section class="scene">
     <img class="avatar-hero" src="https://avatars.githubusercontent.com/u/170876959?v=4" alt="Umesh Linga"/>
     <div class="eyebrow">Bioinformatics Engineer</div>
     <h1>Decoding genomes.<br/><span class="grad">Delivering answers.</span></h1>
-    <p class="sub">I'm <b>Umesh Linga</b>. I build the pipelines that turn raw sequencing into clinical decisions — <b>WGS, WES, targeted panels</b> — and the <b>agentic AI</b> that helps interpret what they find.</p>
+    <p class="sub">I'm <b>Umesh Linga</b>. I build the systems that turn raw genomic data into decisions people can act on — production NGS pipelines, variant interpretation, genomic data platforms, and <b>agentic AI</b> that reads the evidence behind every call.</p>
     <div class="typed"><span class="prompt">&gt;</span> <span id="type"></span><span class="cursor"></span></div>
     <div class="cta">
       <a class="btn p" href="https://github.com/umeshlinga">GitHub — @umeshlinga</a>
@@ -120,6 +130,8 @@
     </div>
     <div class="scrollhint">Scroll</div>
   </section>
+
+  <!-- 3D WORLD -->
   <section class="scene">
     <div class="eyebrow rv">Interactive</div>
     <h2 class="rv">Step into<br/><span class="grad">the genome lab.</span></h2>
@@ -144,8 +156,10 @@
         <button class="right" data-k="right">▶</button>
       </div>
     </div>
-    <div class="worldKeys rv"><b>W A S D</b> / <b>← ↑ ↓ →</b> to drive · the DNA tower at the centre is home base</div>
+    <div class="worldKeys rv"><b>W A S D</b> / <b>← ↑ ↓ →</b> to drive · <b>C</b> cinematic camera · the DNA tower at the centre is home base</div>
   </section>
+
+  <!-- STATS -->
   <section class="scene">
     <div class="eyebrow rv">By the numbers</div>
     <h2 class="rv">Built for the<br/><span class="grad">clinical grade.</span></h2>
@@ -156,11 +170,14 @@
       <div class="stat rv d3"><div class="n grad">11</div><div class="l">Public code repositories</div></div>
     </div>
   </section>
+
+  <!-- PROJECTS -->
   <section class="scene">
     <div class="eyebrow rv">Featured work</div>
     <h2 class="rv">Projects that<br/><span class="grad">ship answers.</span></h2>
     <p class="sub rv" style="margin-top:14px">Point at any project — it goes deep. (Same six buildings as the world above.)</p>
     <div class="show">
+
       <div class="proj rv" tabindex="0"><div class="chev">+</div>
         <div class="k" style="color:var(--violet)">Agentic AI</div>
         <h3>Genetic Evidence Discovery</h3>
@@ -169,6 +186,7 @@
         <div class="tags"><span class="tag">LLM Agents</span><span class="tag">RAG</span><span class="tag">ClinVar API</span><span class="tag">Evidence Tracing</span></div>
         <a href="https://github.com/umeshlinga">Explore on GitHub →</a></div>
       </div>
+
       <div class="proj rv" tabindex="0"><div class="chev">+</div>
         <div class="k" style="color:var(--green)">NGS Pipeline</div>
         <h3>FASTQ → Variant Annotation</h3>
@@ -177,6 +195,7 @@
         <div class="tags"><span class="tag">Python</span><span class="tag">Bash</span><span class="tag">AWS</span><span class="tag">Variant Calling</span></div>
         <a href="https://github.com/umeshlinga/ngs-pipeline">Explore the repo →</a></div>
       </div>
+
       <div class="proj rv" tabindex="0"><div class="chev">+</div>
         <div class="k" style="color:var(--blue)">Data Platform</div>
         <h3>Genomic Data Management</h3>
@@ -185,6 +204,7 @@
         <div class="tags"><span class="tag">PostgreSQL</span><span class="tag">REST API</span><span class="tag">HTML Reports</span></div>
         <a href="https://github.com/umeshlinga/genomic-data-mgmt">Explore the repo →</a></div>
       </div>
+
       <div class="proj rv" tabindex="0"><div class="chev">+</div>
         <div class="k" style="color:var(--teal)">Full-Stack</div>
         <h3>MetaBiome Platform</h3>
@@ -193,6 +213,7 @@
         <div class="tags"><span class="tag">FastAPI</span><span class="tag">React</span><span class="tag">PostgreSQL</span><span class="tag">AWS ECS</span></div>
         <a href="https://github.com/umeshlinga/metabiome-platform">Explore the repo →</a></div>
       </div>
+
       <div class="proj rv" tabindex="0"><div class="chev">+</div>
         <div class="k" style="color:var(--green)">Transcriptomics</div>
         <h3>RNA-seq Framework</h3>
@@ -201,6 +222,7 @@
         <div class="tags"><span class="tag">STAR</span><span class="tag">featureCounts</span><span class="tag">OOP Python</span><span class="tag">AWS</span></div>
         <a href="https://github.com/umeshlinga/rnaseq-framework">Explore the repo →</a></div>
       </div>
+
       <div class="proj rv" tabindex="0"><div class="chev">+</div>
         <div class="k" style="color:var(--violet)">Single-Cell</div>
         <h3>NAFLD → HCC · 68K-Cell Atlas</h3>
@@ -209,8 +231,11 @@
         <div class="tags"><span class="tag">scRNA-seq</span><span class="tag">Integration</span><span class="tag">Biomarkers</span><span class="tag">68,060 cells</span></div>
         <a href="https://github.com/umeshlinga/nafld-hcc-scrna-integration">Explore the repo →</a></div>
       </div>
+
     </div>
   </section>
+
+  <!-- ARSENAL -->
   <section class="scene">
     <div class="eyebrow rv">The arsenal</div>
     <h2 class="rv">Tools of<br/><span class="grad">the trade.</span></h2>
@@ -223,6 +248,8 @@
     </div>
     <p class="sub rv">Databases: ClinVar · HGMD · ExAC/gnomAD · Ensembl · RefSeq · UCSC · 1000 Genomes · TCGA · ICGC</p>
   </section>
+
+  <!-- TIMELINE -->
   <section class="scene">
     <div class="eyebrow rv">The run so far</div>
     <h2 class="rv">Every line<br/><span class="grad">earned.</span></h2>
@@ -234,6 +261,8 @@
       <div class="job rv"><h3>Bioinformatics Analyst — Cipla</h3><p class="m">Dec 2021 – Jul 2023 · Mumbai, India</p><p>Regulated clinical laboratory — patient samples, chain-of-custody, ACMG variant classification, clinical reporting pipelines.</p></div>
     </div>
   </section>
+
+  <!-- CLOSE -->
   <section class="scene">
     <div class="eyebrow rv">What's next</div>
     <h2 class="rv">Let's sequence<br/><span class="grad">something great.</span></h2>
@@ -247,149 +276,548 @@
       <a class="btn g" href="mailto:umesh.linga25@gmail.com">✉️ umesh.linga25@gmail.com</a>
     </div>
   </section>
+
 </main>
 <footer>
   Umesh Linga · <a href="tel:+13174275601">+1 (317) 427-5601</a> · <a href="mailto:umesh.linga25@gmail.com">umesh.linga25@gmail.com</a> · <a href="https://github.com/umeshlinga">github.com/umeshlinga</a> · <a href="https://www.linkedin.com/in/umesh-linga-aa8321293/">LinkedIn</a>
 </footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+/* ============ THE GENOME LAB v9 — cinematic, detail pass ============ */
 (function(){
   var canvas=document.getElementById('world'); if(!canvas||typeof THREE==="undefined") return;
   var PROJECTS=[
-    {name:"Genetic Evidence Discovery", k:"Agentic AI", desc:"Multi-agent AI with RAG over ClinVar and the literature — every claim traceable to its evidence.", url:"https://github.com/umeshlinga", color:0x5e5ce6, x:-26, z:-16},
-    {name:"NGS Pipeline", k:"NGS Pipeline", desc:"FASTQ to annotated variants — modular Python/Bash on AWS. Same run, same result, every time.", url:"https://github.com/umeshlinga/ngs-pipeline", color:0x0a7d5c, x:0, z:-24},
-    {name:"Genomic Data Management", k:"Data Platform", desc:"SQL-driven genomic data with a REST annotation API and generated HTML reports.", url:"https://github.com/umeshlinga/genomic-data-mgmt", color:0x1f7ae0, x:26, z:-16},
-    {name:"MetaBiome Platform", k:"Full-Stack", desc:"Microbiome platform end to end — NGS pipeline, FastAPI, PostgreSQL, React, AWS ECS/Batch.", url:"https://github.com/umeshlinga/metabiome-platform", color:0x12a594, x:-26, z:14},
-    {name:"RNA-seq Framework", k:"Transcriptomics", desc:"STAR + featureCounts in OOP Python on AWS — any cohort, run the same way twice.", url:"https://github.com/umeshlinga/rnaseq-framework", color:0x2f9e44, x:0, z:24},
-    {name:"NAFLD \u2192 HCC Atlas", k:"Single-Cell", desc:"Multi-cohort scRNA-seq integration plus 68,060 colorectal cancer cells, read for biomarkers.", url:"https://github.com/umeshlinga/nafld-hcc-scrna-integration", color:0x7b5ea7, x:26, z:14}
+    {name:"Genetic Evidence Discovery", k:"Agentic AI", desc:"Multi-agent AI with RAG over ClinVar and the literature — every claim traceable to its evidence.", url:"https://github.com/umeshlinga", color:0x8f8cff, css:"#8f8cff", kind:"glass", x:-27, z:-17},
+    {name:"NGS Pipeline", k:"NGS Pipeline", desc:"FASTQ to annotated variants — modular Python/Bash on AWS. Same run, same result, every time.", url:"https://github.com/umeshlinga/ngs-pipeline", color:0x2ee6a8, css:"#2ee6a8", kind:"lab", x:0, z:-26},
+    {name:"Genomic Data Management", k:"Data Platform", desc:"SQL-driven genomic data with a REST annotation API and generated HTML reports.", url:"https://github.com/umeshlinga/genomic-data-mgmt", color:0x4db2ff, css:"#4db2ff", kind:"step", x:27, z:-17},
+    {name:"MetaBiome Platform", k:"Full-Stack", desc:"Microbiome platform end to end — NGS pipeline, FastAPI, PostgreSQL, React, AWS ECS/Batch.", url:"https://github.com/umeshlinga/metabiome-platform", color:0x2fd8c8, css:"#2fd8c8", kind:"dome", x:-27, z:15},
+    {name:"RNA-seq Framework", k:"Transcriptomics", desc:"STAR + featureCounts in OOP Python on AWS — any cohort, run the same way twice.", url:"https://github.com/umeshlinga/rnaseq-framework", color:0xff5a5a, css:"#ff5a5a", kind:"clinic", x:0, z:26},
+    {name:"NAFLD \u2192 HCC Atlas", k:"Single-Cell", desc:"Multi-cohort scRNA-seq integration plus 68,060 colorectal cancer cells, read for biomarkers.", url:"https://github.com/umeshlinga/nafld-hcc-scrna-integration", color:0xd29bff, css:"#d29bff", kind:"atrium", x:27, z:15}
   ];
   var W=canvas.clientWidth||960, H=canvas.clientHeight||560;
   var renderer;
-  try{ renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true}); }catch(e){ return; }
+  try{ renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true}); }catch(e){ return; }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
   renderer.setSize(W,H);
+  renderer.shadowMap.enabled=true;
+  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure=1.12;
   var scene=new THREE.Scene();
-  scene.fog=new THREE.Fog(0xdff2e4, 55, 120);
-  var cam=new THREE.PerspectiveCamera(46,W/H,.1,300);
-  scene.add(new THREE.AmbientLight(0xffffff,.8));
-  var sun=new THREE.DirectionalLight(0xffffff,.85); sun.position.set(18,30,12); scene.add(sun);
-  var ground=new THREE.Mesh(new THREE.PlaneGeometry(120,120), new THREE.MeshStandardMaterial({color:0xbfe6c8,roughness:1}));
-  ground.rotation.x=-Math.PI/2; scene.add(ground);
-  var roadMat=new THREE.MeshStandardMaterial({color:0x9aa7ad,roughness:1});
-  [[0,0,120,7],[0,0,7,120]].forEach(function(r){
-    var road=new THREE.Mesh(new THREE.PlaneGeometry(r[2],r[3]),roadMat);
-    road.rotation.x=-Math.PI/2; road.position.set(r[0],.02,r[1]); scene.add(road);
-  });
-  function label(text,colorCss){
-    var c=document.createElement('canvas'); c.width=512; c.height=128;
-    var x=c.getContext('2d'); x.font='700 44px -apple-system,"Segoe UI",Arial'; x.textAlign='center'; x.textBaseline='middle';
-    x.shadowColor='rgba(255,255,255,.95)'; x.shadowBlur=14; x.fillStyle=colorCss; x.fillText(text,256,64);
-    var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false}));
-    sp.scale.set(13,3.25,1); return sp;
+  scene.fog=new THREE.Fog(0x232c4a, 75, 190);
+
+  (function(){
+    var c=document.createElement('canvas'); c.width=16; c.height=512;
+    var x=c.getContext('2d');
+    var g=x.createLinearGradient(0,0,0,512);
+    g.addColorStop(0,'#0b1230'); g.addColorStop(.42,'#27355f');
+    g.addColorStop(.72,'#6b5a7d'); g.addColorStop(.9,'#c97a45'); g.addColorStop(1,'#e8a56b');
+    x.fillStyle=g; x.fillRect(0,0,16,512);
+    var tx=new THREE.CanvasTexture(c); tx.encoding=THREE.sRGBEncoding;
+    scene.background=tx;
+  })();
+
+  var cam=new THREE.PerspectiveCamera(46,W/H,.1,400);
+  scene.add(new THREE.HemisphereLight(0x8fa3cc,0x2a241f,.55));
+  var sun=new THREE.DirectionalLight(0xffb36b,1.35);
+  sun.position.set(-38,34,20);
+  sun.castShadow=true;
+  sun.shadow.mapSize.set(2048,2048);
+  sun.shadow.camera.left=-62; sun.shadow.camera.right=62;
+  sun.shadow.camera.top=62; sun.shadow.camera.bottom=-62;
+  sun.shadow.camera.far=160; sun.shadow.bias=-0.0006;
+  scene.add(sun);
+  var fill=new THREE.DirectionalLight(0x6f87b8,.35); fill.position.set(30,22,-26); scene.add(fill);
+
+  function shadowed(m){ m.castShadow=true; m.receiveShadow=true; return m; }
+
+  function noiseOn(x,w,h,n,cols){
+    for(var i=0;i<n;i++){
+      x.fillStyle=cols[(Math.random()*cols.length)|0];
+      x.globalAlpha=.05+Math.random()*.08;
+      x.fillRect(Math.random()*w,Math.random()*h,1+Math.random()*2,1+Math.random()*2);
+    }
+    x.globalAlpha=1;
   }
-  function css(hex){ return '#'+hex.toString(16).padStart(6,'0'); }
-  var spots=[];
-  PROJECTS.forEach(function(p,i){
+  /* dark glass facade, 512px: framed windows, mullions, varied light */
+  function glassTexture(litRatio,litColor,darkColor){
+    var S=512, c=document.createElement('canvas'); c.width=S; c.height=S;
+    var x=c.getContext('2d');
+    x.fillStyle=darkColor; x.fillRect(0,0,S,S);
+    var cols=10, rows=12, cw=S/cols, ch=S/rows;
+    for(var i=0;i<cols;i++) for(var j=0;j<rows;j++){
+      var r=Math.random();
+      var lit=r<litRatio;
+      var px=i*cw, py=j*ch;
+      x.fillStyle='#0d1420'; x.fillRect(px+2,py+2,cw-4,ch-4);            /* frame */
+      if(lit){
+        x.fillStyle=litColor; x.globalAlpha=.72+Math.random()*.28;
+        x.fillRect(px+5,py+5,cw-10,ch-10);
+        x.globalAlpha=1;
+        x.fillStyle='rgba(255,255,255,.22)'; x.fillRect(px+5,py+5,cw-10,5); /* top glint */
+        if(Math.random()<.4){ x.fillStyle='rgba(10,14,24,.35)'; x.fillRect(px+cw/2,py+5,2,ch-10); } /* centre mullion */
+      } else {
+        var v=18+((Math.random()*14)|0);
+        x.fillStyle='rgb('+(v-4)+','+(v+3)+','+(v+14)+')';
+        x.fillRect(px+5,py+5,cw-10,ch-10);
+        x.fillStyle='rgba(160,190,235,.13)'; x.fillRect(px+5,py+5,cw-10,6); /* sky reflection */
+      }
+    }
+    x.strokeStyle='rgba(0,0,0,.4)'; x.lineWidth=2;                       /* slab lines */
+    for(var j2=0;j2<=rows;j2++){ x.beginPath(); x.moveTo(0,j2*ch); x.lineTo(S,j2*ch); x.stroke(); }
+    noiseOn(x,S,S,300,['#ffffff','#9db8dd']);
+    var t=new THREE.CanvasTexture(c);
+    t.wrapS=t.wrapT=THREE.RepeatWrapping; t.encoding=THREE.sRGBEncoding;
+    return t;
+  }
+  /* light concrete facade, 512px: panel seams + banded windows */
+  function concreteTexture(base,band,litRatio){
+    var S=512, c=document.createElement('canvas'); c.width=S; c.height=S;
+    var x=c.getContext('2d');
+    x.fillStyle=base; x.fillRect(0,0,S,S);
+    var rows=10, rh=S/rows;
+    for(var j=0;j<rows;j++){
+      x.fillStyle=band; x.fillRect(0,j*rh+rh*.36,S,rh*.38);
+      x.fillStyle='rgba(0,0,0,.22)'; x.fillRect(0,j*rh+rh*.74,S,3);       /* band shadow */
+      for(var i=0;i<12;i++){
+        x.fillStyle='rgba(12,18,28,.85)'; x.fillRect(i*(S/12)+3,j*rh+rh*.36+3,(S/12)-6,rh*.38-6);
+        if(Math.random()<litRatio){ x.fillStyle='rgba(255,214,150,.92)'; x.fillRect(i*(S/12)+5,j*rh+rh*.36+5,(S/12)-10,rh*.38-10); }
+      }
+      x.strokeStyle='rgba(70,76,86,.5)'; x.lineWidth=2;                   /* panel seams */
+      x.beginPath(); x.moveTo(0,j*rh); x.lineTo(S,j*rh); x.stroke();
+    }
+    for(var v=0;v<=4;v++){ x.strokeStyle='rgba(70,76,86,.35)'; x.beginPath(); x.moveTo(v*(S/4),0); x.lineTo(v*(S/4),S); x.stroke(); }
+    noiseOn(x,S,S,520,['#5a6068','#ffffff']);
+    var t=new THREE.CanvasTexture(c);
+    t.wrapS=t.wrapT=THREE.RepeatWrapping; t.encoding=THREE.sRGBEncoding;
+    return t;
+  }
+  function signTexture(text,cssColor){
+    var c=document.createElement('canvas'); c.width=1024; c.height=160;
+    var x=c.getContext('2d');
+    x.fillStyle='#0a0f1e'; x.fillRect(0,0,1024,160);
+    x.strokeStyle='rgba(255,255,255,.22)'; x.lineWidth=3; x.strokeRect(6,6,1012,148);
+    x.font='700 62px -apple-system,"Segoe UI",Arial'; x.textAlign='center'; x.textBaseline='middle';
+    x.shadowColor=cssColor; x.shadowBlur=22; x.fillStyle=cssColor;
+    x.fillText(text.toUpperCase(),512,84);
+    var t=new THREE.CanvasTexture(c); t.encoding=THREE.sRGBEncoding; return t;
+  }
+  function glowSprite(color,scale,opacity){
+    var c=document.createElement('canvas'); c.width=128; c.height=128;
+    var x=c.getContext('2d');
+    var g=x.createRadialGradient(64,64,2,64,64,62);
+    g.addColorStop(0,color); g.addColorStop(1,'rgba(0,0,0,0)');
+    x.fillStyle=g; x.fillRect(0,0,128,128);
+    var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,opacity:opacity,depthWrite:false,blending:THREE.AdditiveBlending}));
+    sp.scale.set(scale,scale,1); return sp;
+  }
+
+  /* ---------- ground, roads, sidewalks, crosswalks ---------- */
+  (function(){
+    var c=document.createElement('canvas'); c.width=256; c.height=256;
+    var x=c.getContext('2d'); x.fillStyle='#262b33'; x.fillRect(0,0,256,256);
+    noiseOn(x,256,256,1500,['#ffffff','#8fa3bf','#000000']);
+    var gt=new THREE.CanvasTexture(c);
+    gt.wrapS=gt.wrapT=THREE.RepeatWrapping; gt.repeat.set(18,18); gt.encoding=THREE.sRGBEncoding;
+    var ground=new THREE.Mesh(new THREE.PlaneGeometry(170,170),
+      new THREE.MeshStandardMaterial({map:gt,roughness:.96,metalness:0}));
+    ground.rotation.x=-Math.PI/2; ground.receiveShadow=true; scene.add(ground);
+  })();
+  function road(w,l,rotY,px,pz){
+    var c=document.createElement('canvas'); c.width=128; c.height=128;
+    var x=c.getContext('2d'); x.fillStyle='#191c21'; x.fillRect(0,0,128,128);
+    noiseOn(x,128,128,500,['#ffffff','#5a6472']);
+    x.fillStyle='#e8c95a'; x.fillRect(60,0,8,44); x.fillRect(60,84,8,44);
+    var t=new THREE.CanvasTexture(c);
+    t.wrapS=t.wrapT=THREE.RepeatWrapping; t.repeat.set(1,Math.max(2,(l/9)|0)); t.encoding=THREE.sRGBEncoding;
+    var m=new THREE.Mesh(new THREE.PlaneGeometry(w,l), new THREE.MeshStandardMaterial({map:t,roughness:.94}));
+    m.rotation.x=-Math.PI/2; m.rotation.z=rotY; m.position.set(px,.03,pz);
+    m.receiveShadow=true; scene.add(m);
+  }
+  road(9,150,0,0,0); road(9,150,Math.PI/2,0,0);
+  var walkMat=new THREE.MeshStandardMaterial({color:0x49505c,roughness:.9});
+  [[5.9,0,0],[ -5.9,0,0]].forEach(function(s){
+    var a=new THREE.Mesh(new THREE.BoxGeometry(2,0.14,150),walkMat);
+    a.position.set(s[0],0.07,0); shadowed(a); scene.add(a);
+    var b=new THREE.Mesh(new THREE.BoxGeometry(150,0.14,2),walkMat);
+    b.position.set(0,0.07,s[0]); shadowed(b); scene.add(b);
+  });
+  (function(){
+    var c=document.createElement('canvas'); c.width=128; c.height=128;
+    var x=c.getContext('2d'); x.fillStyle='#191c21'; x.fillRect(0,0,128,128);
+    x.fillStyle='#dfe4ea';
+    for(var i=0;i<5;i++) x.fillRect(8+i*24,10,13,108);
+    var t=new THREE.CanvasTexture(c); t.encoding=THREE.sRGBEncoding;
+    [[0,8.6,0],[0,-8.6,0],[8.6,0,Math.PI/2],[-8.6,0,Math.PI/2]].forEach(function(cw){
+      var m=new THREE.Mesh(new THREE.PlaneGeometry(8.4,4.6), new THREE.MeshStandardMaterial({map:t,roughness:.94}));
+      m.rotation.x=-Math.PI/2; m.rotation.z=cw[2]; m.position.set(cw[0],.045,cw[1]);
+      m.receiveShadow=true; scene.add(m);
+    });
+  })();
+
+  /* ---------- buildings, detailed ---------- */
+  var beacons=[];
+  function box(parent,w,h,d,mat,px,py,pz){
+    var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);
+    m.position.set(px||0,py||0,pz||0); shadowed(m); parent.add(m); return m;
+  }
+  function accentMat(hex){ return new THREE.MeshStandardMaterial({color:hex,roughness:.5,metalness:.3,emissive:hex,emissiveIntensity:.28}); }
+  function darkMat(){ return new THREE.MeshStandardMaterial({color:0x39404c,roughness:.8}); }
+  function sign(parent,text,cssColor,w,py,pz){
+    var tex=signTexture(text,cssColor);
+    var s=new THREE.Mesh(new THREE.PlaneGeometry(w,1.65),
+      new THREE.MeshStandardMaterial({map:tex,emissive:0xffffff,emissiveMap:tex,emissiveIntensity:.55,roughness:.6}));
+    s.position.set(0,py,pz); parent.add(s); return s;
+  }
+  function beacon(parent,py){
+    var b=new THREE.Mesh(new THREE.SphereGeometry(.22,10,10),
+      new THREE.MeshStandardMaterial({color:0x330000,emissive:0xff2222,emissiveIntensity:1}));
+    b.position.y=py; parent.add(b); beacons.push(b);
+  }
+  function parapet(g,w,d,topY,mat){
+    var t=.28, h=.55;
+    box(g,w+t*2,h,t,mat,0,topY+h/2,d/2+t/2); box(g,w+t*2,h,t,mat,0,topY+h/2,-d/2-t/2);
+    box(g,t,h,d,mat,w/2+t/2,topY+h/2,0); box(g,t,h,d,mat,-w/2-t/2,topY+h/2,0);
+  }
+  function roofProps(g,topY,seed){
+    var m=new THREE.MeshStandardMaterial({color:0x8b95a3,roughness:.7,metalness:.25});
+    box(g,2.6,1.5,2,m,-2.6+seed,topY+.75,.8);
+    box(g,1.6,1,1.4,m,2.2-seed,topY+.5,-1.2);
+    var vent=new THREE.Mesh(new THREE.CylinderGeometry(.42,.42,1.3,10),m);
+    vent.position.set(.4-seed,topY+.65,1.8); shadowed(vent); g.add(vent);
+    var ant=new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,3.4,6),darkMat());
+    ant.position.set(3-seed,topY+1.7,-2.4); g.add(ant);
+  }
+  function entrance(g,accentHex,frontZ){
+    box(g,5.4,.22,2.1,darkMat(),0,3.15,frontZ+.8);
+    box(g,.18,3.1,.18,darkMat(),-2.55,1.55,frontZ+1.6);
+    box(g,.18,3.1,.18,darkMat(),2.55,1.55,frontZ+1.6);
+    var door=new THREE.Mesh(new THREE.PlaneGeometry(3,2.9),
+      new THREE.MeshStandardMaterial({color:0x1a2531,emissive:0xffc98a,emissiveIntensity:.35,roughness:.3,metalness:.4}));
+    door.position.set(0,1.45,frontZ+.06); g.add(door);
+    box(g,5.4,.3,.3,accentMat(accentHex),0,3.32,frontZ+.8);
+  }
+
+  function buildProject(p){
     var g=new THREE.Group();
-    var h=6+(i%3)*2.2;
-    var body=new THREE.Mesh(new THREE.BoxGeometry(8,h,8), new THREE.MeshStandardMaterial({color:0xffffff,roughness:.85}));
-    body.position.y=h/2; g.add(body);
-    var roof=new THREE.Mesh(new THREE.BoxGeometry(8.8,1,8.8), new THREE.MeshStandardMaterial({color:p.color,roughness:.6}));
-    roof.position.y=h+.5; g.add(roof);
-    var door=new THREE.Mesh(new THREE.BoxGeometry(2,3,.3), new THREE.MeshStandardMaterial({color:0x33424f}));
-    door.position.set(0,1.5,4.05); g.add(door);
-    var lb=label(p.name, css(p.color)); lb.position.y=h+3.4; g.add(lb);
-    g.position.set(p.x,0,p.z); scene.add(g);
-    spots.push({x:p.x,z:p.z,p:p});
+    var tex, mat;
+    if(p.kind==='glass'){
+      tex=glassTexture(.42,'#ffd9a0','#232c3e'); tex.repeat.set(2,4);
+      mat=new THREE.MeshStandardMaterial({map:tex,emissive:0xffc98a,emissiveMap:tex,emissiveIntensity:.5,roughness:.35,metalness:.3});
+      box(g,12,2,12,darkMat(),0,1,0);
+      box(g,9,20,9,mat,0,12,0);
+      parapet(g,9,9,22,darkMat());
+      box(g,9.7,1.1,9.7,accentMat(p.color),0,22.9,0);
+      [-3.6,-1.2,1.2,3.6].forEach(function(fx){ box(g,.16,17,.4,accentMat(p.color),fx,11,4.6); });
+      roofProps(g,22.6,1);
+      beacon(g,23.8);
+      sign(g,p.name,p.css,9.4,19,4.56);
+      entrance(g,p.color,4.5);
+    } else if(p.kind==='lab'){
+      tex=concreteTexture('#c9ced6','#31435c',.3); tex.repeat.set(3,2);
+      mat=new THREE.MeshStandardMaterial({map:tex,roughness:.7,metalness:.08});
+      box(g,12.5,9,9.5,mat,0,4.5,0);
+      box(g,12.7,.9,9.7,accentMat(p.color),0,7.6,0);
+      parapet(g,12.5,9.5,9,darkMat());
+      [3.2,5.4,8].forEach(function(by){ box(g,3.4,.18,.9,darkMat(),-3.6,by,5.15); box(g,3.4,.18,.9,darkMat(),3.4,by,5.15); });
+      box(g,4.5,3.4,6,new THREE.MeshStandardMaterial({color:0xb9bfc9,roughness:.75}),-8.2,1.7,0);
+      roofProps(g,9.3,.4);
+      sign(g,p.name,p.css,10.6,5.6,4.81);
+      entrance(g,p.color,4.75);
+    } else if(p.kind==='step'){
+      tex=glassTexture(.34,'#bcd8ff','#1d2739'); tex.repeat.set(2,2);
+      mat=new THREE.MeshStandardMaterial({map:tex,emissive:0xa8c8ff,emissiveMap:tex,emissiveIntensity:.45,roughness:.38,metalness:.3});
+      box(g,10.5,8,10.5,mat,0,4,0);
+      parapet(g,10.5,10.5,8,darkMat());
+      box(g,7,9,7,mat,0,12.5,-1);
+      parapet(g,7,7,17,darkMat());
+      box(g,7.6,1,7.6,accentMat(p.color),0,17.7,-1);
+      roofProps(g,8.3,.8);
+      beacon(g,18.5);
+      sign(g,p.name,p.css,9.6,6.4,5.31);
+      entrance(g,p.color,5.25);
+    } else if(p.kind==='dome'){
+      tex=concreteTexture('#d5d9de','#274b52',.26); tex.repeat.set(3,1.4);
+      mat=new THREE.MeshStandardMaterial({map:tex,roughness:.7,metalness:.08});
+      box(g,11,6,10,mat,0,3,0);
+      box(g,11.5,.8,10.5,accentMat(p.color),0,6.4,0);
+      parapet(g,11,10,6.8,darkMat());
+      var dome=new THREE.Mesh(new THREE.SphereGeometry(4.4,26,14,0,Math.PI*2,0,Math.PI/2),
+        new THREE.MeshStandardMaterial({color:0x9fd8d2,roughness:.15,metalness:.4,emissive:0x2fd8c8,emissiveIntensity:.22,transparent:true,opacity:.92}));
+      dome.position.y=7; shadowed(dome); g.add(dome);
+      sign(g,p.name,p.css,9.8,3.9,5.06);
+      entrance(g,p.color,5);
+    } else if(p.kind==='clinic'){
+      tex=concreteTexture('#e8eaee','#3c5a78',.22); tex.repeat.set(3,2.4);
+      mat=new THREE.MeshStandardMaterial({map:tex,roughness:.65,metalness:.06});
+      box(g,11.5,10.5,9.5,mat,0,5.25,0);
+      box(g,12,.9,10.1,new THREE.MeshStandardMaterial({color:0xd23b3b,roughness:.55}),0,10.9,0);
+      parapet(g,11.5,9.5,11.35,darkMat());
+      box(g,4,3.2,6.5,new THREE.MeshStandardMaterial({color:0xdde1e7,roughness:.7}),7.6,1.6,0);
+      var cc=document.createElement('canvas'); cc.width=cc.height=128;
+      var cx=cc.getContext('2d'); cx.fillStyle='#ffffff'; cx.fillRect(0,0,128,128);
+      cx.fillStyle='#d23b3b'; cx.fillRect(52,20,24,88); cx.fillRect(20,52,88,24);
+      var ctex=new THREE.CanvasTexture(cc);
+      var cross=new THREE.Mesh(new THREE.PlaneGeometry(2.1,2.1),
+        new THREE.MeshStandardMaterial({map:ctex,emissive:0xffffff,emissiveIntensity:.35,emissiveMap:ctex}));
+      cross.position.set(0,8.6,4.79); g.add(cross);
+      roofProps(g,11.4,.2);
+      sign(g,p.name,p.css,9.8,5.9,4.81);
+      entrance(g,0xd23b3b,4.75);
+    } else { /* atrium */
+      tex=glassTexture(.3,'#ffd9a0','#262038'); tex.repeat.set(2.4,1.2);
+      mat=new THREE.MeshStandardMaterial({map:tex,emissive:0xffc98a,emissiveMap:tex,emissiveIntensity:.42,roughness:.42,metalness:.25});
+      box(g,11.5,4.2,10,mat,0,2.1,0);
+      box(g,12,.5,10.5,accentMat(p.color),0,4.35,0);
+      box(g,8.6,4.2,7.6,mat,0,6.3,0);
+      box(g,9.1,.5,8.1,accentMat(p.color),0,8.55,0);
+      box(g,5.8,4.2,5.4,mat,0,10.5,0);
+      box(g,6.3,.7,5.9,accentMat(p.color),0,12.9,0);
+      roofProps(g,12.6,.6);
+      sign(g,p.name,p.css,9.8,2.9,5.06);
+      entrance(g,p.color,5);
+    }
+    g.position.set(p.x,0,p.z);
+    g.rotation.y=Math.atan2(-p.x,-p.z);
+    scene.add(g);
+    return g;
+  }
+  var spots=[];
+  PROJECTS.forEach(function(p){ buildProject(p); spots.push({x:p.x,z:p.z,p:p}); });
+
+  /* filler towers — city density, no labels */
+  [[-44,-36,17],[44,-36,21],[-44,36,14],[44,37,18],[-41,3,24],[41,5,15],[-17,-41,19],[19,-43,13],[9,43,16],[-21,41,22],[36,-24,11],[-36,24,12]].forEach(function(f,i){
+    var t=glassTexture(.22+i*.012,'#cfd9ea','#1c2434'); t.repeat.set(2,3);
+    var m=new THREE.MeshStandardMaterial({map:t,emissive:0xbfcfff,emissiveMap:t,emissiveIntensity:.3,roughness:.5,metalness:.2});
+    var b=new THREE.Mesh(new THREE.BoxGeometry(8,f[2],8),m);
+    b.position.set(f[0],f[2]/2,f[1]); shadowed(b); scene.add(b);
+    var cap=new THREE.Mesh(new THREE.BoxGeometry(8.5,.7,8.5),darkMat());
+    cap.position.set(f[0],f[2]+.35,f[1]); shadowed(cap); scene.add(cap);
+    var ant2=new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,3,6),darkMat());
+    ant2.position.set(f[0]+2,f[2]+2,f[1]-2); scene.add(ant2);
   });
-  var trunkM=new THREE.MeshStandardMaterial({color:0x8a5a33,roughness:1});
-  var leafM=new THREE.MeshStandardMaterial({color:0x2f9e44,roughness:1});
-  [[-14,-26],[14,-28],[-34,0],[34,-2],[-14,26],[16,30],[-34,24],[36,26],[-8,-8],[10,8],[-36,-22],[38,-24]].forEach(function(t){
-    var tr=new THREE.Group();
-    var trunk=new THREE.Mesh(new THREE.CylinderGeometry(.35,.45,2,7),trunkM); trunk.position.y=1; tr.add(trunk);
-    var cone=new THREE.Mesh(new THREE.ConeGeometry(2.1,4.6,8),leafM); cone.position.y=4.4; tr.add(cone);
-    tr.position.set(t[0],0,t[1]); scene.add(tr);
-  });
+
+  /* DNA tower — home base */
   var tower=new THREE.Group();
-  var sGeo=new THREE.SphereGeometry(.5,14,14);
-  var mA=new THREE.MeshStandardMaterial({color:0x0a9d76,roughness:.35});
-  var mB=new THREE.MeshStandardMaterial({color:0x1f7ae0,roughness:.35});
-  var mR=new THREE.MeshStandardMaterial({color:0xc7d2e0,roughness:.6});
-  for(var i=0;i<22;i++){
-    var a=i*.42, y=i*.62+1;
-    var ax=Math.cos(a)*2.6, az=Math.sin(a)*2.6, bx=Math.cos(a+Math.PI)*2.6, bz=Math.sin(a+Math.PI)*2.6;
-    var s1=new THREE.Mesh(sGeo,mA); s1.position.set(ax,y,az); tower.add(s1);
-    var s2=new THREE.Mesh(sGeo,mB); s2.position.set(bx,y,bz); tower.add(s2);
+  var sGeo=new THREE.SphereGeometry(.52,16,16);
+  var mA=new THREE.MeshStandardMaterial({color:0x18c79a,roughness:.25,metalness:.35,emissive:0x0a7d5c,emissiveIntensity:.5});
+  var mB=new THREE.MeshStandardMaterial({color:0x3f9be0,roughness:.25,metalness:.35,emissive:0x1f5fb0,emissiveIntensity:.5});
+  var mR=new THREE.MeshStandardMaterial({color:0xd7e0ec,roughness:.35,metalness:.7});
+  for(var i=0;i<24;i++){
+    var a=i*.42, y=i*.62+1.2;
+    var ax=Math.cos(a)*2.7, az=Math.sin(a)*2.7, bx=Math.cos(a+Math.PI)*2.7, bz=Math.sin(a+Math.PI)*2.7;
+    var s1=new THREE.Mesh(sGeo,mA); s1.position.set(ax,y,az); shadowed(s1); tower.add(s1);
+    var s2=new THREE.Mesh(sGeo,mB); s2.position.set(bx,y,bz); shadowed(s2); tower.add(s2);
     if(i%2===0){ var len=Math.hypot(bx-ax,bz-az);
       var rung=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,len,6),mR);
       rung.position.set((ax+bx)/2,y,(az+bz)/2); rung.rotation.z=Math.PI/2; rung.rotation.y=-Math.atan2(bz-az,bx-ax); tower.add(rung); }
   }
-  tower.position.set(0,0,0); scene.add(tower);
-  var base=new THREE.Mesh(new THREE.CylinderGeometry(4.4,4.8,.6,24), new THREE.MeshStandardMaterial({color:0xe8edf2,roughness:.9}));
-  base.position.y=.3; scene.add(base);
-  var car=new THREE.Group();
-  var cBody=new THREE.Mesh(new THREE.BoxGeometry(2.4,.8,4), new THREE.MeshStandardMaterial({color:0xe03131,roughness:.35,metalness:.25}));
-  cBody.position.y=.75; car.add(cBody);
-  var cTop=new THREE.Mesh(new THREE.BoxGeometry(2,.7,2), new THREE.MeshStandardMaterial({color:0x22303c,roughness:.3,metalness:.3}));
-  cTop.position.set(0,1.45,-.2); car.add(cTop);
-  var wGeo=new THREE.CylinderGeometry(.42,.42,.3,12), wMat=new THREE.MeshStandardMaterial({color:0x1d1d1f});
-  [[-1.15,1.25],[1.15,1.25],[-1.15,-1.25],[1.15,-1.25]].forEach(function(w){
-    var wh=new THREE.Mesh(wGeo,wMat); wh.rotation.z=Math.PI/2; wh.position.set(w[0],.42,w[1]); car.add(wh);
+  var pole=new THREE.Mesh(new THREE.CylinderGeometry(.16,.16,17,10),mR);
+  pole.position.y=8.5; tower.add(pole);
+  var beaconTop=new THREE.Mesh(new THREE.SphereGeometry(.6,14,14),
+    new THREE.MeshStandardMaterial({color:0x113322,emissive:0x2ee6a8,emissiveIntensity:1.4}));
+  beaconTop.position.y=17.4; tower.add(beaconTop);
+  scene.add(tower);
+  var towerBase=new THREE.Mesh(new THREE.CylinderGeometry(5,5.5,.7,28),
+    new THREE.MeshStandardMaterial({color:0x39404c,roughness:.85}));
+  towerBase.position.y=.35; shadowed(towerBase); scene.add(towerBase);
+  var ringGlow=glowSprite('rgba(46,230,168,.85)',13,.5); ringGlow.position.y=2.2; scene.add(ringGlow);
+
+  /* round-canopy trees (no more cones) + lamp posts */
+  var trunkM=new THREE.MeshStandardMaterial({color:0x5d4128,roughness:1});
+  var leafM=new THREE.MeshStandardMaterial({color:0x24513a,roughness:.95,flatShading:true});
+  var leafM2=new THREE.MeshStandardMaterial({color:0x2f6b45,roughness:.95,flatShading:true});
+  [[-14,-28],[14,-30],[-35,-4],[35,-6],[-14,28],[16,31],[-35,25],[37,27],[-9,-9],[11,9],[-37,-24],[39,-26]].forEach(function(t,i){
+    var tr=new THREE.Group();
+    var trunk=new THREE.Mesh(new THREE.CylinderGeometry(.3,.44,2.6,7),trunkM); trunk.position.y=1.3; shadowed(trunk); tr.add(trunk);
+    var lm=i%2?leafM:leafM2;
+    var c1=new THREE.Mesh(new THREE.SphereGeometry(1.95,10,8),lm); c1.position.y=4.3; shadowed(c1); tr.add(c1);
+    var c2=new THREE.Mesh(new THREE.SphereGeometry(1.25,9,7),i%2?leafM2:leafM); c2.position.set(.95,3.6,.35); shadowed(c2); tr.add(c2);
+    var c3=new THREE.Mesh(new THREE.SphereGeometry(1.1,9,7),lm); c3.position.set(-.9,3.7,-.3); shadowed(c3); tr.add(c3);
+    tr.position.set(t[0],0,t[1]); scene.add(tr);
   });
-  car.position.set(10,0,10); scene.add(car);
-  var heading=Math.PI*.75, speed=0;
-  var keys={up:0,down:0,left:0,right:0}, started=false;
+  var lampHeadM=new THREE.MeshStandardMaterial({color:0x554433,emissive:0xffd9a0,emissiveIntensity:2.2});
+  [[6.5,-14],[-6.5,14],[6.5,27],[-6.5,-27],[17,6.5],[-17,-6.5],[27,-6.5],[-27,6.5]].forEach(function(l){
+    var g=new THREE.Group();
+    var pole2=new THREE.Mesh(new THREE.CylinderGeometry(.09,.12,4.8,8),new THREE.MeshStandardMaterial({color:0x2c313a,roughness:.6,metalness:.6}));
+    pole2.position.y=2.4; shadowed(pole2); g.add(pole2);
+    var arm=new THREE.Mesh(new THREE.BoxGeometry(.12,.12,1.4),new THREE.MeshStandardMaterial({color:0x2c313a,roughness:.6,metalness:.6}));
+    arm.position.set(0,4.75,.6); g.add(arm);
+    var head=new THREE.Mesh(new THREE.SphereGeometry(.3,12,12),lampHeadM); head.position.set(0,4.85,1.25); g.add(head);
+    var glow=glowSprite('rgba(255,205,130,.9)',4.6,.55); glow.position.set(0,4.85,1.25); g.add(glow);
+    g.position.set(l[0],0,l[1]); scene.add(g);
+  });
+
+  /* ---------- the F1 car, detailed ---------- */
+  var car=new THREE.Group();
+  var paint=new THREE.MeshStandardMaterial({color:0xe10600,roughness:.28,metalness:.45});
+  var carbon=new THREE.MeshStandardMaterial({color:0x14161a,roughness:.5,metalness:.4});
+  var whiteM=new THREE.MeshStandardMaterial({color:0xf2f4f7,roughness:.35,metalness:.2});
+  function cbox(w,h,d,mat,px,py,pz,rx){
+    var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);
+    m.position.set(px,py,pz); if(rx) m.rotation.x=rx; car.add(m); return m;
+  }
+  cbox(1.7,.12,4.3,carbon,0,.22,0);                       /* floor */
+  cbox(1.86,.05,.5,carbon,0,.3,-1.9);                     /* floor rear edge */
+  cbox(.95,.5,2.6,paint,0,.62,-.1);                       /* monocoque */
+  cbox(.3,.03,2.2,whiteM,0,.885,-.15);                    /* livery stripe */
+  cbox(.5,.42,1.5,paint,.72,.5,-.35); cbox(.5,.42,1.5,paint,-.72,.5,-.35); /* sidepods */
+  cbox(.46,.3,.1,carbon,.72,.52,.42); cbox(.46,.3,.1,carbon,-.72,.52,.42); /* intakes */
+  [.86,.98,1.1].forEach(function(ly){                     /* cooling louvres */
+    cbox(.52,.05,.6,carbon,.72,ly-.34,-.5); cbox(.52,.05,.6,carbon,-.72,ly-.34,-.5);
+  });
+  var nose=new THREE.Mesh(new THREE.CylinderGeometry(.13,.3,1.7,12),paint);
+  nose.rotation.x=Math.PI/2; nose.position.set(0,.55,1.6); car.add(nose);
+  cbox(.34,.04,.9,whiteM,0,.78,1.5);                      /* nose vanity panel */
+  cbox(.5,.4,1.5,paint,0,.92,-.9);                        /* engine cover */
+  cbox(.46,.5,.8,carbon,0,1.32,-.35);                     /* airbox */
+  cbox(.3,.13,.22,new THREE.MeshStandardMaterial({color:0xff7f00,roughness:.4,metalness:.3}),0,1.64,-.35); /* T-cam */
+  cbox(.08,.62,1.4,carbon,0,1.28,-1.05);                  /* shark fin */
+  cbox(.8,.18,1.2,carbon,0,.95,.15);                      /* cockpit rim */
+  var helmet=new THREE.Mesh(new THREE.SphereGeometry(.27,16,14),whiteM);
+  helmet.position.set(0,1.1,.05); car.add(helmet);
+  cbox(.42,.12,.12,carbon,0,1.12,.3);                     /* visor */
+  cbox(.06,.06,.3,carbon,.55,1.06,.42); cbox(.06,.06,.3,carbon,-.55,1.06,.42); /* mirror stalks */
+  cbox(.2,.12,.05,carbon,.62,1.1,.55); cbox(.2,.12,.05,carbon,-.62,1.1,.55);   /* mirrors */
+  var halo=new THREE.Mesh(new THREE.TorusGeometry(.55,.06,10,24,Math.PI),carbon);
+  halo.rotation.y=Math.PI/2; halo.position.set(0,.98,.1); car.add(halo);
+  cbox(2.3,.07,.55,carbon,0,.16,2.3);                     /* front wing */
+  cbox(2.1,.05,.3,carbon,0,.3,2.38,-.35);
+  cbox(.5,.04,.22,carbon,.95,.3,2.2,.5); cbox(.5,.04,.22,carbon,-.95,.3,2.2,.5); /* cascades */
+  cbox(.05,.3,.55,paint,1.13,.3,2.3); cbox(.05,.3,.55,paint,-1.13,.3,2.3);
+  cbox(1.15,.07,.5,carbon,0,1.34,-2.12);                  /* rear wing */
+  cbox(1.15,.05,.3,carbon,0,1.52,-2.2,.3);
+  cbox(1.15,.03,.08,carbon,0,1.44,-2.3);                  /* gurney flap */
+  cbox(.07,.55,.07,carbon,.2,1.02,-2.08); cbox(.07,.55,.07,carbon,-.2,1.02,-2.08);
+  cbox(.05,.52,.62,paint,.58,1.36,-2.12); cbox(.05,.52,.62,paint,-.58,1.36,-2.12);
+  cbox(1.3,.34,.08,carbon,0,.36,-2.24,.25);               /* diffuser */
+  [-.4,0,.4].forEach(function(fx){ cbox(.04,.3,.3,carbon,fx,.36,-2.26,.25); });
+  var exhaust=new THREE.Mesh(new THREE.CylinderGeometry(.07,.07,.25,10),
+    new THREE.MeshStandardMaterial({color:0xb9c1cc,roughness:.25,metalness:.85}));
+  exhaust.rotation.x=Math.PI/2; exhaust.position.set(0,.98,-2.16); car.add(exhaust);
+  var rainLight=cbox(.16,.1,.05,new THREE.MeshStandardMaterial({color:0x220000,emissive:0xff2020,emissiveIntensity:2}),0,.62,-2.16);
+  var antenna=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.7,6),carbon);
+  antenna.position.set(.2,1.5,-.6); car.add(antenna);
+
+  function makeWheel(r,w){
+    var grp=new THREE.Group();
+    var spin=new THREE.Group(); grp.add(spin);
+    var tire=new THREE.Mesh(new THREE.CylinderGeometry(r,r,w,22),
+      new THREE.MeshStandardMaterial({color:0x0c0c0e,roughness:.92}));
+    tire.rotation.z=Math.PI/2; spin.add(tire);
+    var hub=new THREE.Mesh(new THREE.CylinderGeometry(r*.45,r*.45,w+.02,14),
+      new THREE.MeshStandardMaterial({color:0xd8dde3,roughness:.3,metalness:.7}));
+    hub.rotation.z=Math.PI/2; spin.add(hub);
+    [0,Math.PI/3,2*Math.PI/3].forEach(function(sa){
+      var spoke=new THREE.Mesh(new THREE.BoxGeometry(w*.55,r*1.66,.15),
+        new THREE.MeshStandardMaterial({color:0x2a2f36,roughness:.45,metalness:.5}));
+      spoke.rotation.x=sa; spin.add(spoke);
+    });
+    var ring=new THREE.Mesh(new THREE.TorusGeometry(r*.97,w*.4,8,24),
+      new THREE.MeshStandardMaterial({color:0xe8c95a,roughness:.5,metalness:.3}));
+    spin.add(ring);
+    grp.userData.spin=spin;
+    return grp;
+  }
+  var wheels=[];
+  [[1.02,.40,1.4],[-1.02,.40,1.4],[1.05,.48,-1.4],[-1.05,.48,-1.4]].forEach(function(wd){
+    var wh=makeWheel(wd[1],wd[2]>0?.34:.42);
+    wh.position.set(wd[0],wd[1],wd[2]);
+    car.add(wh); wheels.push(wh);
+  });
+  car.traverse(function(o){ if(o.isMesh){ o.castShadow=true; } });
+  car.position.set(11,0,11); scene.add(car);
+  var heading=Math.PI*.8, speed=0, steer=0;
+
+  /* ---------- controls ---------- */
+  var keys={up:0,down:0,left:0,right:0}, started=false, camMode='chase';
   var KEYMAP={ArrowUp:'up',KeyW:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right'};
-  addEventListener('keydown',function(e){ var k=KEYMAP[e.code]; if(k){keys[k]=1; if(started&&(e.code.indexOf('Arrow')===0)) e.preventDefault();} });
+  addEventListener('keydown',function(e){
+    if(e.code==='KeyC'){ camMode=(camMode==='chase')?'orbit':'chase'; return; }
+    var k=KEYMAP[e.code]; if(k){ keys[k]=1; if(started&&(e.code.indexOf('Arrow')===0)) e.preventDefault(); }
+  });
   addEventListener('keyup',function(e){ var k=KEYMAP[e.code]; if(k) keys[k]=0; });
   document.querySelectorAll('#pad button').forEach(function(b){
     var k=b.getAttribute('data-k');
     var on=function(e){e.preventDefault();keys[k]=1;}, off=function(){keys[k]=0;};
-    b.addEventListener('pointerdown',on); b.addEventListener('pointerup',off); b.addEventListener('pointerleave',off); b.addEventListener('pointercancel',off);
+    b.addEventListener('pointerdown',on); b.addEventListener('pointerup',off);
+    b.addEventListener('pointerleave',off); b.addEventListener('pointercancel',off);
   });
   document.getElementById('startBtn').addEventListener('click',function(){
     started=true; document.getElementById('startOverlay').classList.add('off');
     canvas.scrollIntoView({behavior:'smooth',block:'center'});
   });
+
+  /* ---------- info panel ---------- */
   var info=document.getElementById('worldInfo'), current='';
   function setInfo(p){
     if(p){
       info.innerHTML='<div class="k">'+p.k+'</div><h4>'+p.name+'</h4><p>'+p.desc+'</p><a href="'+p.url+'">Open the repo \u2192</a>';
     } else {
-      info.innerHTML='<div class="k">Explore</div><h4>The Genome Lab</h4><p>Drive with <b>W A S D</b> or the arrow keys. Pull up to any building to see the project inside it.</p>';
+      info.innerHTML='<div class="k">Explore</div><h4>The Genome Lab</h4><p>Drive with <b>W A S D</b> or the arrow keys. Press <b>C</b> for the cinematic camera that circles the car. Pull up to any building to see the project inside it.</p>';
     }
   }
-  var camTarget=new THREE.Vector3();
+  setInfo(null);
+
+  /* ---------- loop ---------- */
+  var camTarget=new THREE.Vector3(), lookTarget=new THREE.Vector3();
   (function loop(t){
     requestAnimationFrame(loop);
     if(started){
       if(keys.left) heading+=.045; if(keys.right) heading-=.045;
-      var target=(keys.up?.34:(keys.down?-.2:0));
-      speed+= (target-speed)*.12;
+      var target=(keys.up?.36:(keys.down?-.2:0));
+      speed+=(target-speed)*.12;
       car.position.x+=Math.sin(heading)*speed;
       car.position.z+=Math.cos(heading)*speed;
-      car.position.x=Math.max(-46,Math.min(46,car.position.x));
-      car.position.z=Math.max(-46,Math.min(46,car.position.z));
+      car.position.x=Math.max(-52,Math.min(52,car.position.x));
+      car.position.z=Math.max(-52,Math.min(52,car.position.z));
       car.rotation.y=heading;
+      var steerT=keys.left?.38:(keys.right?-.38:0);
+      steer+=(steerT-steer)*.18;
+      wheels[0].rotation.y=steer; wheels[1].rotation.y=steer;
+      wheels.forEach(function(w){ w.userData.spin.rotation.x+=speed*2.3; });
     }
     tower.rotation.y=t*.0004;
+    for(var bi=0;bi<beacons.length;bi++){
+      beacons[bi].material.emissiveIntensity=1.1+Math.sin(t*.005+bi*1.7)*1.1;
+    }
+    rainLight.material.emissiveIntensity=(t%700<350)?2.4:.15;
+    beaconTop.material.emissiveIntensity=1.2+Math.sin(t*.003)*.6;
+
     var near=null, nd=1e9;
     spots.forEach(function(s){ var d=Math.hypot(car.position.x-s.x,car.position.z-s.z); if(d<nd){nd=d;near=s;} });
-    var name=(near&&nd<9.5)?near.p.name:'';
+    var name=(near&&nd<10.5)?near.p.name:'';
     if(name!==current){ current=name; setInfo(name?near.p:null); }
-    camTarget.set(car.position.x+17,19,car.position.z+17);
-    cam.position.lerp(camTarget,.06);
-    cam.lookAt(car.position.x,1,car.position.z);
+
+    if(!started){
+      var a=t*.00007;
+      camTarget.set(Math.sin(a)*31,13.5,Math.cos(a)*31);
+      cam.position.lerp(camTarget,.04);
+      lookTarget.set(0,5,0);
+    } else if(camMode==='orbit'){
+      var oa=t*.0004;
+      camTarget.set(car.position.x+Math.sin(oa)*8.6,3.1,car.position.z+Math.cos(oa)*8.6);
+      cam.position.lerp(camTarget,.07);
+      lookTarget.set(car.position.x,1.1,car.position.z);
+    } else {
+      camTarget.set(car.position.x-Math.sin(heading)*13.5,6.2,car.position.z-Math.cos(heading)*13.5);
+      cam.position.lerp(camTarget,.055);
+      lookTarget.set(car.position.x,1.2,car.position.z);
+    }
+    cam.lookAt(lookTarget);
     renderer.render(scene,cam);
   })(0);
+
   function resize(){
     var w=canvas.clientWidth||960, h=canvas.clientHeight||560;
     renderer.setSize(w,h); cam.aspect=w/h; cam.updateProjectionMatrix();
   }
   addEventListener('resize',resize);
 })();
-</script>
-<script>
+
+/* Apple-style scroll scenes */
 (function(){
   const scenes=[...document.querySelectorAll('.scene')];
   function frame(){
@@ -405,10 +833,12 @@
   }
   frame();
 })();
+
+/* reveal for inner blocks */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14});
 document.querySelectorAll('.rv').forEach(n=>io.observe(n));
-</script>
-<script>
+
+/* fast typewriter — 20ms per letter, blinking cursor */
 (function(){
   const lines=[
     "clinical_genomics -- WGS | WES | targeted_panels",
@@ -430,6 +860,8 @@ document.querySelectorAll('.rv').forEach(n=>io.observe(n));
   }
   tick();
 })();
+
+/* tap toggles the deep view on touch devices */
 document.querySelectorAll('.proj').forEach(p=>{
   p.addEventListener('click',e=>{ if(e.target.tagName!=='A') p.classList.toggle('open'); });
 });
