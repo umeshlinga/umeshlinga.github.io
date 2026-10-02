@@ -39,6 +39,10 @@
   .btn.g{border:1px solid #3a3a3f;color:var(--ink)}
   .scrollhint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--muted);font-size:12px;letter-spacing:.3em;text-transform:uppercase;animation:hint 2.4s ease-in-out infinite}
   @keyframes hint{0%,100%{opacity:.35;transform:translate(-50%,0)}50%{opacity:1;transform:translate(-50%,8px)}}
+  .typed{font-family:var(--mono);color:#bdf3ff;font-size:clamp(1rem,2.4vw,1.3rem);min-height:32px;margin-top:22px}
+  .typed .prompt{color:var(--green);font-weight:700}
+  .cursor{display:inline-block;width:10px;height:20px;background:var(--green);vertical-align:-4px;margin-left:2px;animation:blink .7s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
 
   /* reveal */
   .rv{opacity:0;transform:translateY(46px) scale(.985);transition:opacity .9s ease,transform .9s cubic-bezier(.16,.7,.2,1)}
@@ -91,6 +95,7 @@
     <div class="eyebrow rv in">Bioinformatics Engineer</div>
     <h1 class="rv in">Decoding genomes.<br/><span class="grad">Delivering answers.</span></h1>
     <p class="sub rv in">I'm <b>Umesh Linga</b>. I build the pipelines that turn raw sequencing into clinical decisions — <b>WGS, WES, targeted panels</b> — and the <b>agentic AI</b> that helps interpret what they find.</p>
+    <div class="typed rv in"><span class="prompt">&gt;</span> <span id="type"></span><span class="cursor"></span></div>
     <div class="cta rv in">
       <a class="btn p" href="https://github.com/umeshlinga">GitHub — @umeshlinga</a>
       <a class="btn g" href="https://www.linkedin.com/in/umesh-linga-aa8321293/">LinkedIn</a>
@@ -182,6 +187,31 @@
       x.fillStyle='#42d3a8'; x.beginPath(); x.arc(px,y1,2.1,0,7); x.fill();
       x.fillStyle='#38bdf8'; x.beginPath(); x.arc(px,y2,2.1,0,7); x.fill(); }
     t+=.011; requestAnimationFrame(d); })();
+})();
+/* fast typewriter — letters snap in quickly, cursor blinks */
+(function(){
+  const lines=[
+    "clinical_genomics -- WGS | WES | targeted_panels",
+    "variant_interpretation -- ClinVar | HGMD | ACMG",
+    "pipelines -- Nextflow | Docker | AWS | HPC",
+    "agentic_AI -- LLM agents + RAG over genomic evidence",
+    "statistical_genetics -- GWAS | coloc | MR | PRS",
+    "status -- OPEN TO WORK"
+  ];
+  const el=document.getElementById('type'); let li=0, ci=0, del=false;
+  function tick(){
+    const line=lines[li];
+    if(!del){
+      el.textContent=line.slice(0,++ci);
+      if(ci===line.length){ del=true; return setTimeout(tick,1300); }
+      return setTimeout(tick,20);            /* typing speed: 20ms per letter */
+    } else {
+      el.textContent=line.slice(0,--ci);
+      if(ci===0){ del=false; li=(li+1)%lines.length; return setTimeout(tick,250); }
+      return setTimeout(tick,9);             /* delete speed: 9ms per letter */
+    }
+  }
+  tick();
 })();
 /* scroll reveal */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14});
